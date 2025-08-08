@@ -1,0 +1,67 @@
+@font-face {
+    font-family: 'Monument Grotesk Semi';
+    src: url('../fonts/Monument/ABCMonumentGroteskMono-Heavy-Trial.otf') format('truetype');
+    font-weight: thin;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Monument Grotesk Light';
+    src: url('../fonts/Monument/ABCMonumentGrotesk-Light-Trial.otf') format('truetype');
+    font-weight: thin;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Monument Grotesk normal';
+    src: url('../fonts/Monument/ABCMonumentGrotesk-Black-Trial.otf');
+  }
+  
+  body {
+    overflow-x: hidden !important;
+  
+  }
+  
+  :root {
+    --red: #F5383C;
+    --yellow: #FAB555;
+    --blue: #0F8DC1;
+    --second-brown: #FAB55580;
+    --green: #4C7C39;
+    --white: #FFFFFF;
+    --margin-per-section: 120px;
+    --font-white: #FFFF;
+    --bg-card: #CEE6FF;
+  }
+  
+  .bg-youtube {
+    background-image: url('./assets/main/youtube-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden !important;
+  }
+  .second-section {
+    background-color: var(--red);
+  }
+  .btn-primary {
+    background-color: var(--red); 
+    color: white;
+    border: none;
+    border-radius: 60px;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 10px 25px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  }
+  .main-image {
+    width: 650px;
+  }
+  .divider {
+    margin: 50px 0px;
+  }
+  
