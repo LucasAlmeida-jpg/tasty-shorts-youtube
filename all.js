@@ -10,6 +10,7 @@ createApp({
             showModal: false,
             activeIndex: null,
             creatorsForm: false,
+            activeIndex: null,
             tutors: [
                 {
                     image: "assets/tutor/loud.png",
@@ -32,6 +33,22 @@ createApp({
                     description: "Gianluca Sorice Lanzetta, conhecido como Gianzetta ou 'sua waifu musculosa favorita', é criador de conteúdo que une o universo gamer, geek e fitness com humor e autenticidade. Apresentador, campeão de powerlifting e pai, ele compartilha seu dia a dia em plataformas como Instagram e TikTok, promovendo um estilo de vida saudável e divertido no cenário gamer."
                 },
             ],
+            accordionItems: [
+                { title: 'O programa é pago?',
+                  content: 'Não! Totalmente gratuito para os selecionados.' },
+                { title: 'As aulas e as atividades extras aconteceram fora do horário de trabalho?',
+                  content: 'Não, todos o conteúdo e qualquer ação necessária, será realizada dentro do horário habitual de trabalho.' },
+                { title: 'Promotores contratados por agência podem participar?',
+                  content: 'Não. O programa é para quem já é contratado Youtube ' },
+                { title: 'Como faço para me inscrever?',
+                  content: 'Faça sua inscrição de 20 a 28 de Agosto de 2024.' },
+                { title: 'Quantos pessoas serão selecionadas?',
+                  content: 'Serão 15 selecionados nessa fase do programa. Boa sorte!' },
+                { title: 'Quais serão os critérios de seleção?',
+                  content: 'Ter um perfil ativo acima de 500 seguidores, ter publicação média de 2 conteúdos mensais, criatividade e qualidade técnica dos conteúdos.' },
+                { title: 'Quais serão os benefícios de me tornar um/a Beauty Creator?',
+                  content: 'Receber reconhecimento dentro da Youtube.<br> Ganhar autoridade e presença nas redes sociais. Receber prêmios a cada missão cumprida dentro do programa.' },
+              ],
             formData: {
                 name: "",
                 email: "",
@@ -75,7 +92,7 @@ createApp({
     mounted() {
         this.loadGoogleAnalytics();
         this.loadGoogleTagManager();
-        this.loadFormFacade();       
+
         let preview = this.$refs.preview;
         if (preview) {
             preview.play();
@@ -84,6 +101,9 @@ createApp({
     },
 
     methods: {
+        toggleAccordion(index) {
+            this.activeIndex = this.activeIndex === index ? null : index;
+          },
         playVideo() {
             this.video = true;
             this.loading = false;
