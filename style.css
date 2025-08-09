@@ -1,24 +1,66 @@
 @font-face {
-  font-family: 'Monument Grotesk Semi';
-  src: url('../fonts/Monument/ABCMonumentGroteskMono-Heavy-Trial.otf') format('truetype');
+  font-family: 'youtube-sans-bold';
+  src: url('./assets/fonts/YouTube/youtube-sans-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto thin';
+  src: url('./assets/fonts/Roboto/static/Roboto-Thin.ttf') format('truetype');
   font-weight: thin;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Monument Grotesk Light';
-  src: url('../fonts/Monument/ABCMonumentGrotesk-Light-Trial.otf') format('truetype');
+  font-family: 'roboto medium';
+  src: url('./assets/fonts/Roboto/static/Roboto-Medium.ttf') format('truetype');
   font-weight: thin;
   font-style: normal;
-}
-
-@font-face {
-  font-family: 'Monument Grotesk normal';
-  src: url('../fonts/Monument/ABCMonumentGrotesk-Black-Trial.otf');
 }
 
 body {
   overflow-x: hidden !important;
+}
+
+.line-height {
+  line-height: .8;
+}
+
+.line-height-forced {
+  margin-top: -6px !important;
+}
+
+.font-large {
+  font-size: 60px;
+}
+
+.font-medium {
+  font-size: 30px;
+}
+
+.font-small {
+  font-size: 20px;
+}
+
+.font-extra-small {
+  font-size: 15px;
+}
+
+.text-roboto-thin {
+  font-family: 'roboto thin';
+}
+
+.text-roboto-medium {
+  font-family: 'roboto medium';
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.youtube-sans-bold {
+  font-family: 'youtube-sans-bold';
 }
 
 :root {
@@ -47,15 +89,19 @@ body {
   overflow-x: hidden !important;
 }
 
-.second-section, .fourth-section {
+.second-section,
+.fourth-section {
   background-color: var(--red);
 }
 
-.third-section, .fifth-section, .seventh-section {
+.third-section,
+.fifth-section,
+.seventh-section {
   background-color: var(--bg-page);
 }
 
-.sixth-section, .eighth-section{
+.sixth-section,
+.eighth-section {
   background-color: #FAB55580;
 }
 
@@ -87,22 +133,22 @@ body {
   width: 450px;
 }
 
-.third-section  .card-third-section {
+.third-section .card-third-section {
   background-color: var(--yellow);
   padding: 30px 20px;
   border-radius: 20px;
-  height: 100%;
+  min-height: 236px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.fifth-section  .card-fifth-section {
+.fifth-section .card-fifth-section {
   background-color: var(--avocado);
   padding: 30px 20px;
   border-radius: 20px;
-  height: 100%;
+  min-height: 236px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +156,7 @@ body {
   color: white;
 }
 
-.sixth-section .card-sixth-section{
+.sixth-section .card-sixth-section {
   background-color: var(--orange);
   padding: 30px 20px;
   border-radius: 20px;
@@ -122,7 +168,8 @@ body {
   color: black;
   max-height: 224px;
 }
-.seventh-section .card-seventh-section{
+
+.seventh-section .card-seventh-section {
   background-color: var(--blue);
   padding: 30px 20px;
   border-radius: 20px;
@@ -200,13 +247,13 @@ body {
   color: white;
 }
 
-.accordion-item a{
-color: white;
-text-decoration: underline;
+.accordion-item a {
+  color: white;
+  text-decoration: underline;
 }
 
 .accordion-header {
-  cursor: pointer;   
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
