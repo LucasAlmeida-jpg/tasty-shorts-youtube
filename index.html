@@ -17,8 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -67,97 +67,97 @@
                         </div>
                     </div>
 
-                    <!-- <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel"><img
-                                        src="assets/blacklogo.png" alt="creators_logo"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div v-if="isLoading" class="text-center">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Carregando...</span>
+                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
+                        aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel"><img
+                                        src="./assets/main/youTube+creator-logo.png" alt="creators_logo"></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div v-if="isLoading" class="text-center">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Carregando...</span>
+                                        </div>
+                                        <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
                                     </div>
-                                    <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
-                                </div>
-                                <div v-if="error" class="alert alert-danger" role="alert">
-                                    {{ error }}
-                                </div>
-                                <div v-if="success" class="alert alert-success" role="alert">
-                                    {{ success }}
-                                </div>
-                                <form v-else>
-                                    <p v-if="showAllFields"><strong>Inscreva-se a faça parte desta
-                                            comunidade</strong></p>
-                                    <div class="form-floating mb-2">
-                                        <input type="email" class="form-control" id="floatingInput"
-                                            placeholder="name@example.com" v-model="formData.email">
-                                        <label for="floatingInput">E-mail</label>
+                                    <div v-if="error" class="alert alert-danger" role="alert">
+                                        {{ error }}
                                     </div>
+                                    <div v-if="success" class="alert alert-success" role="alert">
+                                        {{ success }}
+                                    </div>
+                                    <form v-else>
+                                        <p v-if="showAllFields"><strong>Inscreva-se a faça parte desta
+                                                comunidade</strong></p>
+                                        <div class="form-floating mb-2">
+                                            <input type="email" class="form-control" id="floatingInput"
+                                                placeholder="name@example.com" v-model="formData.email">
+                                            <label for="floatingInput">E-mail</label>
+                                        </div>
 
-                                    <div class="form-floating mb-2">
-                                        <input type="password" class="form-control" id="floatingPassword"
-                                            placeholder="Password" v-model="formData.password"
-                                            @input="checkPasswordStrength">
-                                        <label for="floatingPassword">Senha</label>
-                                        <div v-if="passwordStrength && showAllFields"
-                                            :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
-                                            <span class="tooltip-trigger" @mouseenter="showTooltip"
-                                                @mouseleave="hideTooltip">Senha {{
-                                                passwordStrength }}</span>
-                                            <div v-show="showingTooltip" class="tooltip-content">
-                                                Para que a senha seja forte, é preciso ter letra maiúscula,
-                                                caractere especial e números!
+                                        <div class="form-floating mb-2">
+                                            <input type="password" class="form-control" id="floatingPassword"
+                                                placeholder="Password" v-model="formData.password"
+                                                @input="checkPasswordStrength">
+                                            <label for="floatingPassword">Senha</label>
+                                            <div v-if="passwordStrength && showAllFields"
+                                                :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
+                                                <span class="tooltip-trigger" @mouseenter="showTooltip"
+                                                    @mouseleave="hideTooltip">Senha {{
+                                                    passwordStrength }}</span>
+                                                <div v-show="showingTooltip" class="tooltip-content">
+                                                    Para que a senha seja forte, é preciso ter letra maiúscula,
+                                                    caractere especial e números!
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div v-if="showAllFields">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" class="form-control" id="floatingName"
-                                                placeholder="Nome" v-model="formData.name">
-                                            <label for="floatingName">Nome</label>
+                                        <div v-if="showAllFields">
+                                            <div class="form-floating mb-2">
+                                                <input type="text" class="form-control" id="floatingName"
+                                                    placeholder="Nome" v-model="formData.name">
+                                                <label for="floatingName">Nome</label>
+                                            </div>
+                                            <div class="form-floating mb-2">
+                                                <input type="tel" class="form-control" id="floatingPhone"
+                                                    v-model="formData.phone" @input="formatTelefone" value="Telefone">
+                                                <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
+                                            </div>
                                         </div>
-                                        <div class="form-floating mb-2">
-                                            <input type="tel" class="form-control" id="floatingPhone"
-                                                v-model="formData.phone" @input="formatTelefone" value="Telefone">
-                                            <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="modal-footer" v-if="!success">
-                                <div>
-                                    <button v-if="showAllFields" class="btn btn-primary me-2"
-                                        @click="toggleFieldsVisibility">Já faço parte da
-                                        Creators.llc</button>
-                                    <button v-else-if="!showAllFields" class="btn btn-terciary me-2"
-                                        @click="toggleFieldsVisibility">Voltar</button>
-                                    <button v-if="!showAllFields" class="btn btn-terciary me-2"
-                                        @click="formForgot">Esqueci a senha</button>
+                                    </form>
                                 </div>
-                                <div>
-                                    <button
-                                        v-if="showAllFields && (formData.name === '' || formData.email === '' || (formData.phone === '' || formData.phone.length < 14) || formData.password === '')"
-                                        class="btn btn-terciary me-2" disabled>Próximo</button>
-                                    <button
-                                        v-else-if="!showAllFields && (formData.email === '' || formData.password === '')"
-                                        class="btn btn-primary me-2" disabled>Inscreva-se</button>
-                                    <button v-else-if="showAllFields" class="btn btn-primary me-2"
-                                        data-bs-target="#exampleModalToggle2"
-                                        data-bs-toggle="modal">Próximo</button>
-                                    <button v-else class="btn btn-primary me-2"
-                                        @click="formLogin">Inscreva-se</button>
+
+                                <div class="modal-footer" v-if="!success">
+                                    <div>
+                                        <button v-if="showAllFields" class="btn btn-primary me-2"
+                                            @click="toggleFieldsVisibility">Já faço parte da
+                                            Creators.llc</button>
+                                        <button v-else-if="!showAllFields" class="btn btn-terciary me-2"
+                                            @click="toggleFieldsVisibility">Voltar</button>
+                                        <button v-if="!showAllFields" class="btn btn-terciary me-2"
+                                            @click="formForgot">Esqueci a senha</button>
+                                    </div>
+                                    <div>
+                                        <button
+                                            v-if="showAllFields && (formData.name === '' || formData.email === '' || (formData.phone === '' || formData.phone.length < 14) || formData.password === '')"
+                                            class="btn btn-terciary me-2" disabled>Próximo</button>
+                                        <button
+                                            v-else-if="!showAllFields && (formData.email === '' || formData.password === '')"
+                                            class="btn btn-primary me-2" disabled>Inscreva-se</button>
+                                        <button v-else-if="showAllFields" class="btn btn-primary me-2"
+                                            data-bs-target="#exampleModalToggle2"
+                                            data-bs-toggle="modal">Próximo</button>
+                                        <button v-else class="btn btn-primary me-2"
+                                            @click="formLogin">Inscreva-se</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> -->
                 </nav>
             </header>
             <section class="first-section divider">
@@ -165,13 +165,18 @@
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-md-6">
                             <img class="main-image" src="./assets/main/Tasty-shorts-br.png"
-                                alt="imagem com descritivo tasty shorts BR"></div>
+                                alt="imagem com descritivo tasty shorts BR">
+                        </div>
                         <div class="col-md-6">
-                            <h1 class="youtube-sans-bold text-uppercase font-large line-height">Onde os sabores <br> encontram criadores</h1>
-                            <h5 class="youtube-sans-bold my-3 font-medium">Um programa exclusivo para quem ama comer <br> bem, gravar e compartilhar.</h5>
-                            <p class="text-roboto-thin font-small">Se você é creator da Grande São Paulo, essa é sua chance de <br> transformar suas experiências
+                            <h1 class="youtube-sans-bold text-uppercase font-large line-height">Onde os sabores <br>
+                                encontram criadores</h1>
+                            <h5 class="youtube-sans-bold my-3 font-medium">Um programa exclusivo para quem ama comer
+                                <br> bem, gravar e compartilhar.</h5>
+                            <p class="text-roboto-thin font-small">Se você é creator da Grande São Paulo, essa é sua
+                                chance de <br> transformar suas experiências
                                 gastronômicas em Shorts com <br> impacto, visibilidade e premiação.</p>
-                            <button class="btn btn-primary">QUERO PARTICIPAR</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalToggle">QUERO PARTICIPAR</button>
                         </div>
                     </div>
                 </div>
@@ -180,11 +185,14 @@
                 <div class="container">
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-md-6">
-                            <h1 class="text-light font-medium youtube-sans-bold"><span class="font-small text-roboto-medium">O que é o</span><br>TASTY SHORTS BR?</h1>
-                            <p class="text-light text-roboto-thin font-small mt-3">Uma jornada 100% gratuita, com 6 semanas de duração, criada para formar e destacar
+                            <h1 class="text-light font-medium youtube-sans-bold"><span
+                                    class="font-small text-roboto-medium">O que é o</span><br>TASTY SHORTS BR?</h1>
+                            <p class="text-light text-roboto-thin font-small mt-3">Uma jornada 100% gratuita, com 6
+                                semanas de duração, criada para formar e destacar
                                 criadores locais através de conteúdos sobre os melhores restaurantes de São Paulo e
                                 Grande São Paulo.</p>
-                            <p class="text-light text-roboto-thin font-small">Você vai aprender com embaixadores referência, participar de desafios valendo prêmios e
+                            <p class="text-light text-roboto-thin font-small">Você vai aprender com embaixadores
+                                referência, participar de desafios valendo prêmios e
                                 publicar Shorts com potencial real de crescimento — tudo isso com apoio do YouTube
                                 Brasil.</p>
                         </div>
@@ -212,7 +220,8 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">4 aulas online e práticas</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">com creators especialistas</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">com creators
+                                    especialistas</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -226,28 +235,32 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/3.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">Plataforma com ranking</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e acompanhamento</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e
+                                    acompanhamento</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/4.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">Certificado oficial</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators Platform</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators
+                                    Platform</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/5.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">Vouchers de consumo</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus vídeos</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus
+                                    vídeos</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/6.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">Treinamento de monetização</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">No Shorts com time do YouTube</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">No Shorts com time do
+                                    YouTube</p>
                             </div>
                         </div>
                     </div>
@@ -258,7 +271,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="youtube-sans-bold font-medium text-light">EMBAIXADORES E PROFESSORES</h1>
-                            <p class="text-roboto-thin font-small text-light">Você vai aprender com quem realmente entende do assunto:</p>
+                            <p class="text-roboto-thin font-small text-light">Você vai aprender com quem realmente
+                                entende do assunto:</p>
                         </div>
                     </div>
                     <div class="row my-5">
@@ -271,7 +285,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p class="text-roboto-thin font-small text-light">Eles vão te guiar com aulas práticas, conteúdos exclusivos e desafios que elevam o nível do
+                        <p class="text-roboto-thin font-small text-light">Eles vão te guiar com aulas práticas,
+                            conteúdos exclusivos e desafios que elevam o nível do
                             seu conteúdo.</p>
                     </div>
                 </div>
@@ -293,7 +308,8 @@
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Certificado oficial</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">com creators especialistas</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">com creators
+                                    especialistas</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -307,28 +323,33 @@
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/3.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Vouchers de consumo</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e acompanhamento</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e
+                                    acompanhamento</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/4.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Acesso a eventos</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators Platform</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators
+                                    Platform</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/5.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Kit exclusivo</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus vídeos</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus
+                                    vídeos</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/6.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Prêmios em dinheiro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced"><b class="text-roboto-medium">Top 3</b>: USD $1.000, <b class="text-roboto-medium">Top 10</b>: USD $200</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced"><b
+                                        class="text-roboto-medium">Top 3</b>: USD $1.000, <b
+                                        class="text-roboto-medium">Top 10</b>: USD $200</p>
                             </div>
                         </div>
                     </div>
@@ -354,43 +375,50 @@
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/2.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">Moram na cidade de <b>São Paulo</b> <br> ou <b>região metropolitana</b></p>
+                                <p class="text-roboto-light font-small mt-3">Moram na cidade de <b>São Paulo</b> <br> ou
+                                    <b>região metropolitana</b></p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/3.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">Tem pelo menos <b>5.000 <br> seguidores</b> em uma rede social</p>
+                                <p class="text-roboto-light font-small mt-3">Tem pelo menos <b>5.000 <br> seguidores</b>
+                                    em uma rede social</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/4.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">Têm interesse em <b>gastronomia</b>, <br> cultura local, lifestyle ou <br> conteúdo criativo</p>
+                                <p class="text-roboto-light font-small mt-3">Têm interesse em <b>gastronomia</b>, <br>
+                                    cultura local, lifestyle ou <br> conteúdo criativo</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/5.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">A gente quer <b>diversidade</b>: perfis <br> de rolê, opinião, vlog, humor, <br> cultura, moda, tudo é bem-vindo.</p>
+                                <p class="text-roboto-light font-small mt-3">A gente quer <b>diversidade</b>: perfis
+                                    <br> de rolê, opinião, vlog, humor, <br> cultura, moda, tudo é bem-vindo.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/6.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">Shorts só serão elegíveis se <br> atenderem a todas as <b>Políticas <br> da Comunidade do YouTube</b></p>
+                                <p class="text-roboto-light font-small mt-3">Shorts só serão elegíveis se <br> atenderem
+                                    a todas as <b>Políticas <br> da Comunidade do YouTube</b></p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/7.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">Criadores que <b>estão ativos</b> e <br> postaram nos <b>últimos 30 dias</b></p>
+                                <p class="text-roboto-light font-small mt-3">Criadores que <b>estão ativos</b> e <br>
+                                    postaram nos <b>últimos 30 dias</b></p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/8.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small mt-3">Não ter <b>nenhum strike</b> ativo na <br> plataforma do YouTube</p>
+                                <p class="text-roboto-light font-small mt-3">Não ter <b>nenhum strike</b> ativo na <br>
+                                    plataforma do YouTube</p>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex justify-content-center">
@@ -416,21 +444,24 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Inscrições abertas</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">até 30 de Agosto de 2025</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">até 30 de Agosto de 2025
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/2.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Início de setembro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Onboarding e primeiras aulas</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">Onboarding e primeiras
+                                    aulas</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/3.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Setembro e outubro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">3 desafios com prêmios</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">3 desafios com prêmios
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -464,9 +495,12 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6">
                             <h1 class="font-medium youtube-sans-bold">TÁ DENTRO?</h1>
-                            <p class="text-roboto-medium font-small"><b>Inscreva-se agora e faça parte do Tasty Shorts BR</b></p>
-                            <p class="text-roboto-regular">Se você quer transformar seus vídeos em visibilidade, prêmios e <br> oportunidades com o YouTube, essa é a sua chance.</p>
-                            <button class="btn btn-primary">QUERO PARTICIPAR</button>
+                            <p class="text-roboto-medium font-small"><b>Inscreva-se agora e faça parte do Tasty Shorts
+                                    BR</b></p>
+                            <p class="text-roboto-regular">Se você quer transformar seus vídeos em visibilidade, prêmios
+                                e <br> oportunidades com o YouTube, essa é a sua chance.</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalToggle">QUERO PARTICIPAR</button>
                         </div>
                         <div class="col-md-6 d-flex align-items-center justify-content-center">
                             <img src="./assets/main/image-06.png" alt="">
@@ -478,24 +512,24 @@
                 <div class="container">
                     <div class="row">
                         <div class=" d-flex align-items-center justify-content-between">
-                        <div>
-                            <img class="mb-4" src="assets/main/image-07.png" alt="Logo">
-                            <div class="d-flex gap-3">
-                                <a class="text-roboto-medium" href="#">Como funciona</a>
-                                <a class="text-roboto-medium" href="#">Como funciona</a>
-                                <a class="text-roboto-medium" href="#">Como funciona</a>
-                                <a class="text-roboto-medium" href="#">Como funciona</a>
-                            </div>
-                        </div>
-                        <div>
                             <div>
-                                <img class="mb-4" src="./assets/main/logo.png" alt="logo_creators">
+                                <img class="mb-4" src="assets/main/image-07.png" alt="Logo">
+                                <div class="d-flex gap-3">
+                                    <a class="text-roboto-medium" href="#">Como funciona</a>
+                                    <a class="text-roboto-medium" href="#">Como funciona</a>
+                                    <a class="text-roboto-medium" href="#">Como funciona</a>
+                                    <a class="text-roboto-medium" href="#">Como funciona</a>
+                                </div>
                             </div>
                             <div>
-                                <a href="mailto:hello@creators.llc">Fale conosco | hello@creators.llc</a>
+                                <div>
+                                    <img class="mb-4" src="./assets/main/logo.png" alt="logo_creators">
+                                </div>
+                                <div>
+                                    <a href="mailto:hello@creators.llc">Fale conosco | hello@creators.llc</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </footer>
