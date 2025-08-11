@@ -11,12 +11,14 @@
   font-weight: thin;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'roboto bold';
   src: url('./assets/fonts/Roboto/static/Roboto-Bold.ttf') format('truetype');
   font-weight: thin;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'roboto light';
   src: url('./assets/fonts/Roboto/static/Roboto-Light.ttf') format('truetype');
@@ -82,9 +84,11 @@ a:hover {
 .text-roboto-light {
   font-family: 'roboto light';
 }
+
 .text-roboto-bold {
   font-family: 'roboto bold';
 }
+
 .text-roboto-regular {
   font-family: 'roboto regular';
 }
@@ -326,4 +330,45 @@ a:hover {
 
 footer {
   background-color: #FFFFFF;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-image {
+    width: 375px;
+  }
+  .nineth-section img {
+    width: 375px;
+  }
+
+  .first-section .col-md-6:first-child {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+  }
+
+  .show-image {
+   display: none;
+  }
+  .modal-primary-button {
+    width: 100%;
+    margin: 20px 0px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    font-size: 16px;
+    padding: 14px 25px;
+  }
+
+  footer .d-flex {
+    display: block !important;
+    text-align: center;
+    margin: 17px 0px;
+  }
+  footer .info-footer {
+    text-transform: uppercase;
+  }
+  .creators_logo {
+    width: 229px;
+  }
 }
