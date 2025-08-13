@@ -475,7 +475,7 @@ footer {
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    padding-bottom: 34px !important;
+    padding-bottom: 46px !important;  
   }
 
   .navbar.scrolled .navbar-toggler-icon span {
@@ -484,6 +484,8 @@ footer {
 
   .navbar {
     transition: all 0.3s ease;
+    background-image: url('./assets/main/youtube-bg.png');
+
   }
 
   .logo {

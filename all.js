@@ -197,7 +197,7 @@ createApp({
             } else if (element.webkitRequestFullScreen) {
                 element.webkitRequestFullScreen();
             } else if (element.requestFullscreen) {
-                element.requestFullscreen(); // Fallback moderno
+                element.requestFullscreen(); 
             }
         },
         loadGoogleAnalytics() {
@@ -510,6 +510,12 @@ createApp({
             return [vertical, redes];
         },
         navStyle() {
+            if (!this.scrolled) {
+                console.log(this.scrolled);
+                return {
+                    backgroundImage: "url('./assets/main/youtube-bg.png')"                
+                };
+            }
             if (this.scrolled) {
                 return {
                     position: 'fixed',
