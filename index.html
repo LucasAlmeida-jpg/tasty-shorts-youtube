@@ -33,9 +33,14 @@
             <header>
                 <nav :style="navStyle" :class="{ scrolled: scrolled }" class="navbar navbar-expand-lg menu">
                     <div class="container d-flex justify-content-between">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                        <button class="navbar-toggler" type="button" :class="{ active: isMenuOpen }" @click="toggleMenu"
+                            data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <div class="navbar-toggler-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
                         </button>
 
                         <div class="collapse navbar-collapse mt-3" id="navbarMenu">
@@ -67,6 +72,7 @@
                         </div>
                     </div>
 
+                    <!-- Modal -->
                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
                         aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
@@ -197,7 +203,8 @@
                                 publicar Shorts com potencial real de crescimento — tudo isso com apoio do YouTube
                                 Brasil.</p>
                         </div>
-                        <div class="col-md-6 d-flex justify-content-center align-items-center" data-aos="fade-down-right">
+                        <div class="col-md-6 d-flex justify-content-center align-items-center"
+                            data-aos="fade-down-right">
                             <img class="img-fluid" src="./assets/main/image-01.png" alt="imagem de um prato de comida">
                         </div>
                     </div>
@@ -260,7 +267,8 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/6.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">Treinamento</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Treinamento com equipe do YouTube e Ambassadors</p>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">Treinamento com equipe
+                                    do YouTube e Ambassadors</p>
                             </div>
                         </div>
                     </div>
@@ -281,26 +289,30 @@
                             <div><img class="m-2" src="./assets/bachelors/1.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="text-roboto-bold text-light font-small">Gui Poulain</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Cozinheiro e criador de conteúdo gastronômico.</p>
+                                    <p class="text-roboto-regular text-light font-extra-small">Cozinheiro e criador de
+                                        conteúdo gastronômico.</p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/2.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="text-roboto-bold text-light font-small">Isabella Scherer</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Vencedora do MasterChef <br> Brasil 2021 e criadora de <br> conteúdo culinário.
+                                    <p class="text-roboto-regular text-light font-extra-small">Vencedora do MasterChef
+                                        <br> Brasil 2021 e criadora de <br> conteúdo culinário.
                                     </p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/3.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="text-roboto-bold text-light font-small">Danilo Carneiro</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Médico, creator e amante da boa comida.</p>
+                                    <p class="text-roboto-regular text-light font-extra-small">Médico, creator e amante
+                                        da boa comida.</p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/4.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="text-roboto-bold text-light font-small">Gi Souza</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Criadora de conteudo e vencedora do MasterChef Creators</p>
+                                    <p class="text-roboto-regular text-light font-extra-small">Criadora de conteudo e
+                                        vencedora do MasterChef Creators</p>
                                 </div>
                             </div>
                         </div>
@@ -503,8 +515,8 @@
                     <p data-aos="fade-down-right" class="text-roboto-thin font-small">Perguntas frequentes</p>
                     <div class="row">
                         <div class="col-md-12">
-                            <div data-aos="fade-up"
-                            data-aos-anchor-placement="top-bottom" v-for="(item, index) in accordionItems" :key="index" class="accordion-item">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                                v-for="(item, index) in accordionItems" :key="index" class="accordion-item">
                                 <div @click="toggleAccordion(index)" class="accordion-header">
                                     {{ item.title }}
                                     <span :class="{ 'rotate-arrow': activeIndex === index }">&#9660;</span>
@@ -519,7 +531,8 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6" data-aos="fade-down-right">
                             <h1 class="font-medium youtube-sans-bold">TÁ DENTRO?</h1>
-                            <p class="text-roboto-medium font-small"><b>Faça Parte dessa Comunidade e faça parte do Tasty Shorts
+                            <p class="text-roboto-medium font-small"><b>Faça Parte dessa Comunidade e faça parte do
+                                    Tasty Shorts
                                     BR</b></p>
                             <p class="text-roboto-regular">Se você quer transformar seus vídeos em visibilidade, prêmios
                                 e <br> oportunidades com o YouTube, essa é a sua chance.</p>
@@ -540,10 +553,12 @@
                                 <img class="mb-4" src="assets/main/image-07.png" alt="Logo">
                                 <div class="d-flex gap-3">
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#como-funciona">Como funciona</a>
+                                        <a class="info-footer text-roboto-medium" href="#como-funciona">Como
+                                            funciona</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#como-participar">Como participar</a>
+                                        <a class="info-footer text-roboto-medium" href="#como-participar">Como
+                                            participar</a>
                                     </div>
                                     <div>
                                         <a class="info-footer text-roboto-medium" href="#embaixadores">Embaixadores</a>

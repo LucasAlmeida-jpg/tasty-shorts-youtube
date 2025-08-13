@@ -11,6 +11,8 @@ createApp({
             activeIndex: null,
             creatorsForm: false,
             activeIndex: null,
+            isMenuOpen: false,
+            navStyle: {},
             tutors: [
                 {
                     image: "assets/tutor/loud.png",
@@ -106,7 +108,7 @@ createApp({
     mounted() {
         this.loadGoogleAnalytics();
         this.loadGoogleTagManager();
-
+        document.addEventListener('click', this.handleClickOutside);
         let preview = this.$refs.preview;
         if (preview) {
             preview.play();
@@ -118,6 +120,33 @@ createApp({
     },
 
     methods: {
+        toggleMenu() {
+            this.isMenuOpen = !this.isMenuOpen;            
+            if (this.isMenuOpen) {
+                setTimeout(() => {
+                    const collapseElement = document.getElementById('navbarMenu');
+                    if (collapseElement && collapseElement.classList.contains('show')) {
+                        setTimeout(() => {
+                            this.isMenuOpen = false;
+                        }, 300);
+                    }
+                }, 100);
+            }
+        },
+        handleClickOutside(event) {
+            const navbar = document.querySelector('.navbar-collapse');
+            const toggler = document.querySelector('.navbar-toggler');
+            
+            if (navbar && !navbar.contains(event.target) && !toggler.contains(event.target)) {
+                if (navbar.classList.contains('show')) {
+                    this.isMenuOpen = false;
+                }
+            }
+        },
+        
+        handleScroll() {
+            this.scrolled = window.scrollY > 50;
+        },
         toggleAccordion(index) {
             this.activeIndex = this.activeIndex === index ? null : index;
         },
@@ -125,7 +154,6 @@ createApp({
             this.video = true;
             this.loading = false;
 
-            // Pausa o preview
             if (this.$refs.preview) {
                 this.$refs.preview.pause();
             }

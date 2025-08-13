@@ -386,4 +386,133 @@ footer {
   br {
     display: none !important;
   }
+  .navbar-toggler {
+    border:  none !important;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  .navbar-toggler:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none !important;
+}
+.navbar-nav {
+  margin-top: 20px;
+}
+.navbar-toggler {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.navbar-toggler-icon {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: inline-block;
+  background: none !important;
+}
+
+.navbar-toggler-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #333;
+  border-radius: 2px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-toggler-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.navbar-toggler-icon span:nth-child(2) {
+  top: 8px;
+}
+
+.navbar-toggler-icon span:nth-child(3) {
+  top: 16px;
+}
+
+/* Estado ativo - transforma em X */
+.navbar-toggler.active .navbar-toggler-icon span:nth-child(1) {
+  top: 8px;
+  transform: rotate(135deg);
+}
+
+.navbar-toggler.active .navbar-toggler-icon span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.navbar-toggler.active .navbar-toggler-icon span:nth-child(3) {
+  top: 8px;
+  transform: rotate(-135deg);
+}
+
+/* Estilos para navbar scrolled */
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .navbar-toggler-icon span {
+  background: #333;
+}
+
+/* Estilos gerais da navbar */
+.navbar {
+  transition: all 0.3s ease;
+}
+
+.logo {
+  max-height: 40px;
+}
+
+.creators_logo {
+  max-height: 30px;
+}
+
+/* Estilos do modal */
+.tooltip-trigger {
+  cursor: help;
+  position: relative;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 5px;
+}
+
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
 }
