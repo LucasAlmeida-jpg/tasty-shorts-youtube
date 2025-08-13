@@ -31,7 +31,7 @@
     <div id="app">
         <div class="bg-youtube">
             <header>
-                <nav class="navbar navbar-expand-lg menu">
+                <nav :style="navStyle" :class="{ scrolled: scrolled }" class="navbar navbar-expand-lg menu">
                     <div class="container d-flex justify-content-between">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -188,7 +188,7 @@
                         <div class="col-md-6" data-aos="fade-down-left">
                             <h1 class="text-light font-medium youtube-sans-bold"><span
                                     class="font-small text-roboto-medium">O que é o</span><br>TASTY SHORTS BR?</h1>
-                            <p class="text-light text-roboto-thin font-small mt-3">Uma jornada 100% gratuita, com 6
+                            <p class="text-light text-roboto-thin font-small mt-3">Uma jornada 100% gratuita, com 8
                                 semanas de duração, criada para formar e destacar
                                 criadores locais através de conteúdos sobre os melhores restaurantes de São Paulo e
                                 Grande São Paulo.</p>
@@ -225,13 +225,13 @@
                                     especialistas</p>
                             </div>
                         </div>
-                        <div class="col-md-4" data-aos="flip-right">
+                        <!-- <div class="col-md-4" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/2.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">4 missões temáticas</h5>
                                 <p class="text-roboto-thin font-extra-small line-height-forced">uma a cada 2 semanas</p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-4" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/3.png" alt="Ícone" class="icon-img">
@@ -243,25 +243,24 @@
                         <div class="col-md-4" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/4.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">Certificado oficial</h5>
+                                <h5 class="text-roboto-medium">Certificado de conclusão do curso</h5>
                                 <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators
                                     Platform</p>
                             </div>
                         </div>
-                        <div class="col-md-4" data-aos="flip-right">
+                        <!-- <div class="col-md-4" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/5.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium">Vouchers de consumo</h5>
                                 <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus
                                     vídeos</p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-4" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/6.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">Treinamento de monetização</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">No Shorts com time do
-                                    YouTube</p>
+                                <h5 class="text-roboto-medium">Treinamento</h5>
+                                <p class="text-roboto-thin font-extra-small line-height-forced">Treinamento com equipe do YouTube e Ambassadors</p>
                             </div>
                         </div>
                     </div>
@@ -329,12 +328,12 @@
                         <div class="col-md-4" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/1.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Certificado oficial</h5>
+                                <h5 class="text-roboto-medium mt-3">Certificado de conclusão do curso</h5>
                                 <p class="text-roboto-thin font-extra-small line-height-forced">com creators
                                     especialistas</p>
                             </div>
                         </div>
-                        <div class="col-md-4" data-aos="flip-right">
+                        <!-- <div class="col-md-4" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/2.png" alt="Ícone" class="icon-img">
                                 <h5 class="text-roboto-medium mt-3">Visibilidade real</h5>
@@ -348,7 +347,7 @@
                                 <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e
                                     acompanhamento</p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-4" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/4.png" alt="Ícone" class="icon-img">
@@ -520,7 +519,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6" data-aos="fade-down-right">
                             <h1 class="font-medium youtube-sans-bold">TÁ DENTRO?</h1>
-                            <p class="text-roboto-medium font-small"><b>Inscreva-se agora e faça parte do Tasty Shorts
+                            <p class="text-roboto-medium font-small"><b>Faça Parte dessa Comunidade e faça parte do Tasty Shorts
                                     BR</b></p>
                             <p class="text-roboto-regular">Se você quer transformar seus vídeos em visibilidade, prêmios
                                 e <br> oportunidades com o YouTube, essa é a sua chance.</p>

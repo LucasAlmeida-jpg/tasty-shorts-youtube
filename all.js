@@ -34,17 +34,35 @@ createApp({
                 },
             ],
             accordionItems: [
-                { title: 'O programa é pago?',
-                  content: 'Não! Totalmente gratuito para os selecionados.' },
-                { title: 'Preciso postar só sobre comida?',
-                  content: 'Não, todos o conteúdo e qualquer ação necessária, será realizada dentro do horário habitual de trabalho.' },
-                { title: 'Tenho que ir até os restaurantes?',
-                  content: 'Não. O programa é para quem já é contratado Youtube ' },
-                { title: 'Sou iniciante, posso participar?',
-                  content: 'Faça sua inscrição de 20 a 28 de Agosto de 2024.' },
-                { title: 'Posso gravar com celular?',
-                  content: 'Serão 15 selecionados nessa fase do programa. Boa sorte!' },
-               ],
+                {
+                    title: 'O programa é pago?',
+                    content: 'Não! Totalmente gratuito para os selecionados.'
+                },
+                {
+                    title: 'Como faço para me inscrever?',
+                    content: 'Preencha o <u>Formulário de Seleção</u> (link! do modal) e analisaremos sua inscrição.'
+                },
+                {
+                    title: 'Para ser selecionado/a, preciso postar só sobre comida?',
+                    content: 'Não. O foco é gastronomia local, mas você pode abordar rolês, experiências, storytelling — queremos criatividade.'
+                },
+                {
+                    title: 'Tenho que ir até os restaurantes?',
+                    content: 'Sim! Vamos enviar uma lista curada com lugares em SP, além de vouchers para facilitar sua visita.'
+                },
+                {
+                    title: 'Sou iniciante, posso participar?',
+                    content: 'Se você tem 5k+ seguidores e publica com frequência, sim! Não exigimos experiência prévia com gastronomia.'
+                },
+                {
+                    title: 'Posso gravar com celular?',
+                    content: 'Deve! As aulas vão te ensinar a extrair o melhor da câmera que você já tem no bolso.'
+                },
+                {
+                    title: 'Quanto tempo dura o programa?',
+                    content: 'O programa acontecerá durante 8 semanas, entre setembro de 2025 a novembro de 2025, com aulas ao vivo a cada quinze dias, das 19h às 20h. Os alunos terão atividades complementares e mentorias ao longo programa com horários a definir.'
+                }
+            ],
             formData: {
                 name: "",
                 email: "",
@@ -67,7 +85,7 @@ createApp({
             selectedSocialMedia: '',
             socialMediaInput: '',
             showAllFields: true,
-
+            scrolled: false,
             vertical: [
                 { name: "Beleza", id: 263 },
                 { name: "Casa", id: 306 },
@@ -94,21 +112,24 @@ createApp({
             preview.play();
         }
         AOS.init();
+        window.addEventListener('scroll', () => {
+            this.scrolled = window.scrollY > 0;
+        });
     },
 
     methods: {
         toggleAccordion(index) {
             this.activeIndex = this.activeIndex === index ? null : index;
-          },
+        },
         playVideo() {
             this.video = true;
             this.loading = false;
-        
+
             // Pausa o preview
             if (this.$refs.preview) {
                 this.$refs.preview.pause();
             }
-        
+
             this.$nextTick(() => {
                 const mainVideo = this.$refs.video;
                 if (mainVideo) {
@@ -117,17 +138,17 @@ createApp({
                     this.goFullScreen('myVideo');
                 }
             });
-        },                  
+        },
 
         paused() {
-            this.video = false;        
+            this.video = false;
             if (this.$refs.preview) {
                 this.$refs.preview.play();
             }
-        },        
+        },
 
         closeFullscreen() {
-            this.video = false;   
+            this.video = false;
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.webkitExitFullscreen) {
@@ -140,7 +161,7 @@ createApp({
         goFullScreen(id) {
             let element = document.getElementById(id);
             if (!element) return;
-        
+
             if (/iPad|iPhone|iPod/.test(navigator.platform)) {
                 element.play();
             } else if (element.mozRequestFullScreen) {
@@ -150,7 +171,7 @@ createApp({
             } else if (element.requestFullscreen) {
                 element.requestFullscreen(); // Fallback moderno
             }
-        },        
+        },
         loadGoogleAnalytics() {
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -441,7 +462,7 @@ createApp({
                 return 'https://www.youtube.com/';
             } else if (socialMedia === 'tiktok') {
                 return 'https://www.tiktok.com/';
-            }   else if (socialMedia === 'twitch') {
+            } else if (socialMedia === 'twitch') {
                 return 'https://www.twitch.tv/';
             }
             return '';
@@ -459,6 +480,19 @@ createApp({
 
 
             return [vertical, redes];
+        },
+        navStyle() {
+            if (this.scrolled) {
+                return {
+                    position: 'fixed',
+                    backgroundImage: "url('./assets/main/youtube-bg.png')",
+                    top: '0',
+                    width: '100%',
+                    zIndex: '1',
+                    paddingBottom: '20px'
+                };
+            }
+            return {};
         }
     },
 

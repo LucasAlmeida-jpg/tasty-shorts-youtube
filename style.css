@@ -129,7 +129,19 @@ a:hover {
   --bg-card: #CEE6FF;
   --bg-page: rgba(236, 236, 236, 1);
 }
-
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background-image: url('./assets/main/youtube-bg.png');
+  padding-bottom: 20px;
+  z-index: 1;
+}
 .bg-youtube {
   background-image: url('./assets/main/youtube-bg.png');
   background-repeat: no-repeat;
@@ -370,5 +382,8 @@ footer {
   }
   .creators_logo {
     width: 229px;
+  }
+  br {
+    display: none !important;
   }
 }
