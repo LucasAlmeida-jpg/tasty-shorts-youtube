@@ -50,19 +50,19 @@
                                             alt="creators logo">
                                     </a></li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#como-funciona">Como Funciona?</a>
+                                    <a class="nav-link youtube-sans-semibold" href="#como-funciona">Como Funciona?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#participar">Como participar?</a>
+                                    <a class="nav-link youtube-sans-semibold" href="#participar">Como participar?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#embaixadores">Embaixadores</a>
+                                    <a class="nav-link youtube-sans-semibold" href="#embaixadores">Embaixadores</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#premiacao">Premiação</a>
+                                    <a class="nav-link youtube-sans-semibold" href="#premiacao">Premiação</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#faq">FAQ</a>
+                                    <a class="nav-link youtube-sans-semibold" href="#faq">FAQ</a>
                                 </li>
                                 <li class="nav-item">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -74,7 +74,7 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                        aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                        aria-labelledby="exampleModalToggleLabel" tabindex="-1" data-bs-backdrop="false">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -99,12 +99,30 @@
                                     <form v-else>
                                         <p v-if="showAllFields"><strong>Inscreva-se a faça parte desta
                                                 comunidade</strong></p>
-                                        <div class="form-floating mb-2">
-                                            <input type="email" class="form-control" id="floatingInput"
-                                                placeholder="name@example.com" v-model="formData.email">
-                                            <label for="floatingInput">E-mail</label>
+                                        
+                                        <div v-if="showAllFields">
+                                            <div class="form-floating mb-2">
+                                                <input type="text" class="form-control" id="floatingName"
+                                                    placeholder="Nome" v-model="formData.name">
+                                                <label for="floatingName">Nome</label>
+                                            </div>
+                                            <div class="form-floating mb-2">
+                                                <input type="email" class="form-control" id="floatingInput"
+                                                    placeholder="name@example.com" v-model="formData.email">
+                                                <label for="floatingInput">E-mail</label>
+                                            </div>
+                                            <div class="form-floating mb-2">
+                                                <input type="tel" class="form-control" id="floatingPhone"
+                                                    v-model="formData.phone" @input="formatTelefone" value="Telefone">
+                                                <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
+                                            </div>
+                                            <div class="form-floating mb-2">
+                                                <input type="text" class="form-control" id="floatingName"
+                                                    placeholder="CPF" v-model="formData.cpf">
+                                                <label for="floatingName">CPF</label>
+                                            </div>
                                         </div>
-
+                                   
                                         <div class="form-floating mb-2">
                                             <input type="password" class="form-control" id="floatingPassword"
                                                 placeholder="Password" v-model="formData.password"
@@ -119,19 +137,6 @@
                                                     Para que a senha seja forte, é preciso ter letra maiúscula,
                                                     caractere especial e números!
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div v-if="showAllFields">
-                                            <div class="form-floating mb-2">
-                                                <input type="text" class="form-control" id="floatingName"
-                                                    placeholder="Nome" v-model="formData.name">
-                                                <label for="floatingName">Nome</label>
-                                            </div>
-                                            <div class="form-floating mb-2">
-                                                <input type="tel" class="form-control" id="floatingPhone"
-                                                    v-model="formData.phone" @input="formatTelefone" value="Telefone">
-                                                <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
                                             </div>
                                         </div>
                                     </form>
@@ -155,8 +160,7 @@
                                             v-else-if="!showAllFields && (formData.email === '' || formData.password === '')"
                                             class="btn btn-primary me-2" disabled>Inscreva-se</button>
                                         <button v-else-if="showAllFields" class="btn btn-primary me-2"
-                                            data-bs-target="#exampleModalToggle2"
-                                            data-bs-toggle="modal">Próximo</button>
+                                          >Próximo</button>
                                         <button v-else class="btn btn-primary me-2"
                                             @click="formLogin">Inscreva-se</button>
                                     </div>
@@ -174,12 +178,12 @@
                                 alt="imagem com descritivo tasty shorts BR">
                         </div>
                         <div class="col-md-6" data-aos="fade-down-left">
-                            <h1 class="youtube-sans-bold text-uppercase font-large line-height">Onde os sabores <br>
+                            <h1 class="youtube-sans-extrabold text-uppercase font-large line-height">Onde os sabores <br>
                                 encontram criadores</h1>
                             <h5 class="youtube-sans-bold my-3 font-medium">Um programa exclusivo para quem ama comer
-                                <br> bem, gravar e compartilhar.
+                                 bem, gravar e compartilhar.
                             </h5>
-                            <p class="text-roboto-thin font-small">Se você é creator da Grande São Paulo, essa é sua
+                            <p class="youtube-sans-regular font-small">Se você é creator da Grande São Paulo, essa é sua
                                 chance de <br> transformar suas experiências
                                 gastronômicas em Shorts com <br> impacto, visibilidade e premiação.</p>
                             <button class="btn btn-primary" data-bs-toggle="modal"
@@ -193,12 +197,12 @@
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-md-6" data-aos="fade-down-left">
                             <h1 class="text-light font-medium youtube-sans-bold"><span
-                                    class="font-small text-roboto-medium">O que é o</span><br>TASTY SHORTS BR?</h1>
-                            <p class="text-light text-roboto-thin font-small mt-3">Uma jornada 100% gratuita, com 8
+                                    class="font-small youtube-sans-regular">O que é o</span><br>TASTY SHORTS BR?</h1>
+                            <p class="text-light youtube-sans-regular font-small mt-3">Uma jornada 100% gratuita, com 8
                                 semanas de duração, criada para formar e destacar
                                 criadores locais através de conteúdos sobre os melhores restaurantes de São Paulo e
                                 Grande São Paulo.</p>
-                            <p class="text-light text-roboto-thin font-small">Você vai aprender com embaixadores
+                            <p class="text-light youtube-sans-regular font-small">Você vai aprender com embaixadores
                                 referência, participar de desafios valendo prêmios e
                                 publicar Shorts com potencial real de crescimento — tudo isso com apoio do YouTube
                                 Brasil.</p>
@@ -215,8 +219,8 @@
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div data-aos="fade-down-right">
-                                <h1 class="youtube-sans-bold font-medium">COMO FUNCIONA?</h1>
-                                <p class="text-roboto-thin font-small">Durante o programa, você terá acesso a:</p>
+                                <h1 class="youtube-sans-extrabold font-medium">COMO FUNCIONA?</h1>
+                                <p class="youtube-sans-regular font-small">Durante o programa, você terá acesso a:</p>
                             </div>
                             <div data-aos="fade-down-left">
                                 <img class="show-image" src="./assets/main/image-02.png" alt="">
@@ -227,48 +231,29 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/1.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">4 aulas online e práticas</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">com creators
-                                    especialistas</p>
+                                <h5 class="youtube-sans-bold">4 aulas online</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">com prática</p>
                             </div>
                         </div>
-                        <!-- <div class="col-md-3" data-aos="flip-right">
+                        <div class="col-md-3" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/2.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">4 missões temáticas</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">uma a cada 2 semanas</p>
+                                <h5 class="youtube-sans-bold">Comunidade</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">entre para um grupo seleto</p>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/3.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">Plataforma com ranking</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e
-                                    acompanhamento</p>
+                                <h5 class="youtube-sans-bold">Certificado</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">de conclusão</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/4.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">Certificado de conclusão do curso</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators
-                                    Platform</p>
-                            </div>
-                        </div>
-                        <!-- <div class="col-md-3" data-aos="flip-right">
-                            <div class="card-third-section text-center">
-                                <img src="assets/how_it_works/5.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">Vouchers de consumo</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus
-                                    vídeos</p>
-                            </div>
-                        </div> -->
-                        <div class="col-md-3" data-aos="flip-right">
-                            <div class="card-third-section text-center">
-                                <img src="assets/how_it_works/6.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium">Treinamento</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Treinamento com equipe
-                                    do YouTube e Ambassadors</p>
+                                <h5 class="youtube-sans-bold">Embaixadores</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">guiado por criadores experts</p>
                             </div>
                         </div>
                     </div>
@@ -278,8 +263,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="youtube-sans-bold font-medium text-light">EMBAIXADORES E PROFESSORES</h1>
-                            <p class="text-roboto-thin font-small text-light">Você vai aprender com quem realmente
+                            <h1 class="youtube-sans-extrabold font-medium text-light">EMBAIXADORES E PROFESSORES</h1>
+                            <p class="youtube-sans-regular font-small text-light">Você vai aprender com quem realmente
                                 entende do assunto:</p>
                         </div>
                     </div>
@@ -288,37 +273,33 @@
                             data-flickity='{ "autoPlay": 1500, "wrapAround": true, "prevNextButtons": false }'>
                             <div><img class="m-2" src="./assets/bachelors/1.png" alt="embaixador foto">
                                 <div class="info-tutor">
-                                    <h3 class="text-roboto-bold text-light font-small">Gui Poulain</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Cozinheiro e criador de
-                                        conteúdo gastronômico.</p>
+                                    <h3 class="youtube-sans-bold text-light font-small">Bia & Clara</h3>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Somando mais de 7 milhões de <br> seguidores nas redes, Bia e Clara  <br> divertem seus seguidores com  <br> conteúdo de gastronomia, viagens e <br>  vida em família regado a muito <br>  humor e entretenimento.</p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/2.png" alt="embaixador foto">
                                 <div class="info-tutor">
-                                    <h3 class="text-roboto-bold text-light font-small">Isabella Scherer</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Vencedora do MasterChef
-                                        <br> Brasil 2021 e criadora de <br> conteúdo culinário.
+                                    <h3 class="youtube-sans-bold text-light font-small">Thiago Quatroque</h3>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Thiago compartilha receitas, reviews e <br> experiências gastronômicas com <br> estilo descontraído, conquistando <br> mais de 1,5 milhão de seguidores <br> engajados.
                                     </p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/3.png" alt="embaixador foto">
                                 <div class="info-tutor">
-                                    <h3 class="text-roboto-bold text-light font-small">Danilo Carneiro</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Médico, creator e amante
-                                        da boa comida.</p>
+                                    <h3 class="youtube-sans-bold text-light font-small">Bia & Rafa</h3>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Bia e Rafa exploram sabores pelo<br>  Brasil e pelo mundo, criando <br> conteúdos autênticos de <br> gastronomia, viagens e cultura que já <br> renderam milhões de visualizações.</p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/4.png" alt="embaixador foto">
                                 <div class="info-tutor">
-                                    <h3 class="text-roboto-bold text-light font-small">Gi Souza</h3>
-                                    <p class="text-roboto-regular text-light font-extra-small">Criadora de conteudo e
-                                        vencedora do MasterChef Creators</p>
+                                    <h3 class="youtube-sans-bold text-light font-small">Júlio Nascimento</h3>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Julio Nascimento, criador do bordão<br> ‘FOOOMEEE!’, diverte sua comunidade <br>fiel com desafios e reviews <br>gastronômicos cheios de humor e <br>entretenimento.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <p class="text-roboto-thin font-small text-light">Eles vão te guiar com aulas práticas,
+                        <p class="youtube-sans-regular font-small text-light">Eles vão te guiar com aulas práticas,
                             conteúdos exclusivos e desafios que elevam o nível do
                             seu conteúdo.</p>
                     </div>
@@ -329,7 +310,7 @@
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div data-aos="fade-down-right">
-                                <h1 class="youtube-sans-bold font-medium text-uppercase">O que você ganha com isso?</h1>
+                                <h1 class="youtube-sans-extrabold font-medium text-uppercase">O que você ganha com isso?</h1>
                             </div>
                             <div data-aos="fade-down-left">
                                 <img class="show-image" src="./assets/main/image-03.png" alt="">
@@ -340,49 +321,30 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/1.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Certificado de conclusão do curso</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">com creators
+                                <h5 class="youtube-sans-bold mt-3">Certificado</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Com creators
                                     especialistas</p>
                             </div>
                         </div>
-                        <!-- <div class="col-md-3" data-aos="flip-right">
+                        <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/2.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Visibilidade real</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">uma a cada 2 semanas</p>
+                                <h5 class="youtube-sans-bold mt-3">Acesso</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced"> a eventos</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/3.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Vouchers de consumo</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">dicas, regras e
-                                    acompanhamento</p>
+                                <h5 class="youtube-sans-bold mt-3">Kit creator</h5>
+                                <p class="youtube-sans-regular  font-extra-small line-height-forced">exclusivo</p>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/4.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Acesso a eventos</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Do YouTube + Creators
-                                    Platform</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3" data-aos="flip-right">
-                            <div class="card-fifth-section text-center">
-                                <img src="assets/what_earn/5.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Kit exclusivo</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">para gravação dos seus
-                                    vídeos</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3" data-aos="flip-right">
-                            <div class="card-fifth-section text-center">
-                                <img src="assets/what_earn/6.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Prêmios em dinheiro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced"><b
-                                        class="text-roboto-medium">Top 3</b>: USD $1.000, <b
-                                        class="text-roboto-medium">Top 10</b>: USD $200</p>
+                                <h5 class="youtube-sans-bold mt-3">Prêmios</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">em dinheiro</p>
                             </div>
                         </div>
                     </div>
@@ -393,8 +355,8 @@
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div data-aos="fade-down-right">
-                                <h1 class="youtube-sans-bold font-medium text-uppercase">Quem pode participar?</h1>
-                                <p class="text-roboto-thin font-small font-tablet">Criadores que:</p>
+                                <h1 class="youtube-sans-extrabold font-medium text-uppercase">Quem pode participar?</h1>
+                                <p class="youtube-sans-regular font-extra-small font-small font-tablet">Criadores que:</p>
                             </div>
                         </div>
                     </div>
@@ -402,58 +364,51 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/1.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Ter maior idade legal de <b>+18</b></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter mais de 18 anos</b> <br><span class="youtube-sans-regular font-extra-small">no momento da inscrição</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/2.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Moram na cidade de <b>São Paulo</b> <br> ou
-                                    <b>região metropolitana</b>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Morar em São Paulo</b><br><span class="youtube-sans-regular font-extra-small">ou na região metropolitana</span>
+                                </b>
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/3.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Tem pelo menos <b>5.000 <br> seguidores</b>
-                                    em uma rede social</p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter no mínimo 5.000</b><br><span class="youtube-sans-regular font-extra-small">seguidores nas redes sociais</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/4.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Têm interesse em <b>gastronomia</b>, <br>
-                                    cultura local, lifestyle ou <br> conteúdo criativo</p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Interesse em</b><br><span class="youtube-sans-regular font-extra-small">gastronomia, cultura, lifestyle</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/5.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">A gente quer <b>diversidade</b>: perfis
-                                    <br> de rolê, opinião, vlog, humor, <br> cultura, moda, tudo é bem-vindo.
-                                </p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Queremos diversidade</b><br><span class="youtube-sans-regular font-extra-small">perfis de rolê, opinião, vlog</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/6.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Shorts só serão elegíveis se <br> atenderem
-                                    a todas as <b>Políticas <br> da Comunidade do YouTube</b></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Shorts elegíveis</b><br><span class="youtube-sans-regular font-extra-small">dentro das regras do YouTube</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/7.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Criadores que <b>estão ativos</b> e <br>
-                                    postaram nos <b>últimos 30 dias</b></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Criadores ativos </b><br><span class="youtube-sans-regular font-extra-small">nos últimos 30 dias</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/8.png" alt="Ícone" class="icon-img">
-                                <p class="text-roboto-light font-small font-tablet mt-3">Não ter <b>nenhum strike</b> ativo na <br>
-                                    plataforma do YouTube</p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Não ter strike ativo </b><br><span class="youtube-sans-regular font-extra-small">na plataforma do YouTube</span></p>
                             </div>
                         </div>
                         <!-- <div class="col-md-4 d-flex justify-content-center" data-aos="flip-right">
@@ -467,7 +422,7 @@
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div data-aos="fade-down-right">
-                                <h1 class="youtube-sans-bold font-medium text-uppercase">cronograma resumido</h1>
+                                <h1 class="youtube-sans-extrabold font-medium text-uppercase">cronograma resumido</h1>
                             </div>
                             <div data-aos="fade-down-left">
                                 <img class="show-image" src="./assets/main/image-05.png" alt="">
@@ -478,32 +433,32 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/1.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Inscrições abertas</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">até 30 de Agosto de 2025
+                                <h5 class="youtube-sans-bold mt-3">Inscrições abertas</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 30 de Agosto de 2025
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/2.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Início de setembro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">Onboarding e primeiras
+                                <h5 class="youtube-sans-bold mt-3">Início de setembro</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Onboarding e primeiras
                                     aulas</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/3.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Setembro e outubro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">3 desafios com prêmios
+                                <h5 class="youtube-sans-bold mt-3">Setembro e outubro</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">3 desafios com prêmios
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/4.png" alt="Ícone" class="icon-img">
-                                <h5 class="text-roboto-medium mt-3">Final de outubro</h5>
-                                <p class="text-roboto-thin font-extra-small line-height-forced">seleção e vencedores</p>
+                                <h5 class="youtube-sans-bold mt-3">Final de outubro</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">seleção e vencedores</p>
                             </div>
                         </div>
                     </div>
@@ -511,8 +466,8 @@
             </section>
             <section id="faq" class="eighth-section p-intern">
                 <div class="container">
-                    <h1 data-aos="fade-down-right" class="font-medium youtube-sans-bold">FAQ</h1>
-                    <p data-aos="fade-down-right" class="text-roboto-thin font-small">Perguntas frequentes</p>
+                    <h1 data-aos="fade-down-right" class="font-medium youtube-sans-extrabold">FAQ</h1>
+                    <p data-aos="fade-down-right" class="youtube-sans-regular font-small">Perguntas frequentes</p>
                     <div class="row">
                         <div class="col-md-12">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
@@ -520,8 +475,8 @@
                                 <div @click="toggleAccordion(index)" class="accordion-header">
                                     {{ item.title }}
                                     <span :class="{ 'rotate-arrow': activeIndex === index }">&#9660;</span>
-                                </div>
-                                <div v-if="activeIndex === index" class="accordion-content" v-html="item.content"></div>
+                                </div> <hr v-if="activeIndex === index" >
+                                <div v-if="activeIndex === index" v-html="item.content"></div>
                             </div>
                         </div>
                     </div>
@@ -530,11 +485,11 @@
                 <div class="container">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6" data-aos="fade-down-right">
-                            <h1 class="font-medium youtube-sans-bold">TÁ DENTRO?</h1>
-                            <p class="text-roboto-medium font-small"><b>Faça Parte dessa Comunidade e faça parte do
+                            <h1 class="font-medium youtube-sans-extrabold">TÁ DENTRO?</h1>
+                            <p class="youtube-sans-regular font-small"><b>Faça Parte dessa Comunidade e faça parte do
                                     Tasty Shorts
                                     BR</b></p>
-                            <p class="text-roboto-regular">Se você quer transformar seus vídeos em visibilidade, prêmios
+                            <p class="youtube-sans-regular">Se você quer transformar seus vídeos em visibilidade, prêmios
                                 e <br> oportunidades com o YouTube, essa é a sua chance.</p>
                             <button class="btn btn-primary modal-primary-button" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle">QUERO PARTICIPAR</button>
@@ -548,35 +503,35 @@
             <footer class="p-intern">
                 <div class="container">
                     <div class="row">
-                        <div class=" d-flex align-items-center justify-content-between">
+                        <div class=" d-flex justify-content-between">
                             <div>
-                                <img class="mb-4" src="assets/main/image-07.png" alt="Logo">
+                                <img class="mb-4" src="assets/main/youTube+creator-logo.png" alt="Logo">
                                 <div class="d-flex gap-3">
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#como-funciona">Como
+                                        <a class="info-footer youtube-sans-semibold" href="#como-funciona">Como
                                             funciona</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#como-participar">Como
+                                        <a class="info-footer youtube-sans-semibold" href="#como-participar">Como
                                             participar</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#embaixadores">Embaixadores</a>
+                                        <a class="info-footer youtube-sans-semibold" href="#embaixadores">Embaixadores</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#premiacao">Premiação</a>
+                                        <a class="info-footer youtube-sans-semibold" href="#premiacao">Premiação</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer text-roboto-medium" href="#faq">FAQ</a>
+                                        <a class="info-footer youtube-sans-semibold" href="#faq">FAQ</a>
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="text-end">
                                 <div>
-                                    <img class="mb-4" src="./assets/main/logo.png" alt="logo_creators">
+                                    <img class="mb-2" style="width: 160px;" src="./assets/main/logo_powered.png" alt="logo_creators">
                                 </div>
                                 <div>
-                                    <a href="mailto:hello@creators.llc">Fale conosco | hello@creators.llc</a>
+                                    <a class="youtube-sans-semibold" href="mailto:hello@creators.llc">Fale conosco | hello@creators.llc</a>
                                 </div>
                             </div>
                         </div>

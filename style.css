@@ -1,13 +1,34 @@
 @font-face {
+  font-family: 'youtube-sans-extrabold';
+  src: url('./assets/fonts/Open/static/OpenSans_SemiCondensed-ExtraBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'youtube-sans-bold';
-  src: url('./assets/fonts/YouTube/youtube-sans-bold.ttf') format('truetype');
+  src: url('./assets/fonts/Open/static/OpenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'youtube-sans-semibold';
+  src: url('./assets/fonts/Open/static/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'youtube-sans-regular';
+  src: url('./assets/fonts/Open/static/OpenSans-Regular.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'roboto thin';
-  src: url('./assets/fonts/Roboto/static/Roboto-Thin.ttf') format('truetype');
+  src: url('./assets/fonts/Open/static/OpenSans-Regular.ttf') format('truetype');
   font-weight: thin;
   font-style: normal;
 }
@@ -66,7 +87,7 @@ a:hover {
 }
 
 .font-large {
-  font-size: 60px;
+  font-size: 49px;
 }
 
 .font-medium {
@@ -74,7 +95,7 @@ a:hover {
 }
 
 .font-small {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .font-extra-small {
@@ -109,25 +130,40 @@ a:hover {
   font-family: 'youtube-sans-bold';
 }
 
+.youtube-sans-extrabold {
+  font-family: 'youtube-sans-extrabold';
+}
+
+.youtube-sans-regular {
+  font-family: 'youtube-sans-regular';
+}
+
+.youtube-sans-semibold {
+  font-family: 'youtube-sans-semibold';
+}
+
 .info-tutor {
   position: absolute;
   bottom: 18px;
   left: 28px;
 }
+.nav-link {
+  color: #222222;
+}
 
 :root {
   --red: #F5383C;
   --yellow: #FAB555;
-  --blue: #0F8DC1;
+  --blue: #4285F4;
   --second-brown: #FAB55580;
-  --green: #4C7C39;
-  --orange: #E36630;
-  --avocado: #679D51;
+  --green: #34A853;
+  --orange: #EA4335;
+  --avocado: #34A853CC;
   --white: #FFFFFF;
   --margin-per-section: 120px;
   --font-white: #FFFF;
   --bg-card: #CEE6FF;
-  --bg-page: rgba(236, 236, 236, 1);
+  --bg-page: #F1F3F4;
 }
 
 nav {
@@ -140,13 +176,13 @@ nav {
 }
 
 nav.scrolled {
-  background-image: url('./assets/main/youtube-bg.png');
+  background-color: #FFFFFF;
   padding-bottom: 20px;
   z-index: 1;
 }
 
 .bg-youtube {
-  background-image: url('./assets/main/youtube-bg.png');
+  background-color: #FFFFFF;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -162,25 +198,22 @@ nav.scrolled {
 }
 
 .third-section,
-.fifth-section,
-.seventh-section {
+.sixth-section,
+.sixth-section,
+.eighth-section {
   background-color: var(--bg-page);
 }
 
-.sixth-section,
-.eighth-section {
-  background-color: #FAB55580;
-}
 
 .btn-primary {
-  background-color: var(--red);
+  background-color: var(--red) !important;
   color: white;
   border: none;
   border-radius: 60px;
   font-size: 12px;
   font-weight: 400;
-  padding: 10px 25px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px 35px;
+  font-family: 'youtube-sans-bold';
 }
 
 .btn-terciary {
@@ -197,7 +230,7 @@ nav.scrolled {
 }
 
 .divider {
-  margin: 50px 0px;
+  margin: 125px 0px;
 }
 
 .p-intern {
@@ -469,6 +502,7 @@ footer {
 
   footer .info-footer {
     margin: 10px 0;
+    color: #3A3A3A;
   }
 
   .creators_logo {
@@ -660,7 +694,7 @@ footer {
 
   .navbar {
     transition: all 0.3s ease;
-    background-image: url('./assets/main/youtube-bg.png');
+    background-color: #FFFFFF;
 
   }
 

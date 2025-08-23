@@ -12,7 +12,6 @@ createApp({
             creatorsForm: false,
             activeIndex: null,
             isMenuOpen: false,
-            navStyle: {},
             tutors: [
                 {
                     image: "assets/tutor/loud.png",
@@ -76,7 +75,8 @@ createApp({
                 specialities: [],
                 validacaoRedes: [
                     { socialMedia: '', link: '' }
-                ]
+                ],
+                cpf: "",
             },
             passwordStrength: '',
             showingTooltip: false,
@@ -513,13 +513,13 @@ createApp({
             if (!this.scrolled) {
                 console.log(this.scrolled);
                 return {
-                    backgroundImage: "url('./assets/main/youtube-bg.png')"                
+                    backgroundColor: "#FFFFFF"                
                 };
             }
             if (this.scrolled) {
                 return {
                     position: 'fixed',
-                    backgroundImage: "url('./assets/main/youtube-bg.png')",
+                    backgroundColor: "#FFFFFF",
                     top: '0',
                     width: '100%',
                     zIndex: '1',
