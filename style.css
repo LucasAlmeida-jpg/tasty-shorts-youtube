@@ -621,6 +621,9 @@ footer {
   br {
     display: none !important;
   }
+  .show {
+    display: block !important;
+  }
 
   .navbar-toggler {
     border: none !important;
