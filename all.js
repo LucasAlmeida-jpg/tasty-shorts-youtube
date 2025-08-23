@@ -605,7 +605,7 @@ createApp({
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                this.form.validation.error = 'Erro ao enviar email de recuperação';
+                this.form.validation.error = 'Erro ao enviar email de recuperação, e-mail não encontrado';
             }
         },
 
