@@ -215,6 +215,15 @@ nav.scrolled {
   padding: 15px 35px;
   font-family: 'youtube-sans-bold';
 }
+.btn-secondary{
+  color: white;
+  border: 1px solid;
+  border-radius: 60px;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 15px 35px;
+  font-family: 'youtube-sans-bold';
+}
 
 .btn-terciary {
   border: 1px solid #9C9B95;

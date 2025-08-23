@@ -74,100 +74,210 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                        aria-labelledby="exampleModalToggleLabel" tabindex="-1" data-bs-backdrop="false">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel"><img class="creators_logo"
-                                            src="./assets/main/youTube+creator-logo.png" alt="creators_logo"></h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div v-if="isLoading" class="text-center">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="visually-hidden">Carregando...</span>
-                                        </div>
-                                        <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
+             aria-labelledby="exampleModalToggleLabel" tabindex="-1" data-bs-backdrop="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
+                            <img class="creators_logo" src="./assets/main/youTube+creator-logo.png" alt="Creators Logo">
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div v-if="isLoading" class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando...</span>
+                            </div>
+                            <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
+                        </div>
+
+                        <div v-if="error && !isLoading" class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+
+                        <div v-if="success && !isLoading" class="alert alert-success" role="alert">
+                            {{ success }}
+                        </div>
+
+                        <form v-if="!success && !isLoading" @submit.prevent>
+                            <div v-if="showAllFields">
+                                <p class="mb-3"><strong>Inscreva-se e faça parte desta comunidade</strong></p>
+                                
+                                <div class="form-floating mb-3">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="floatingName"
+                                        placeholder="Nome" 
+                                        v-model="formData.name"
+                                        :class="{'is-invalid': hasFieldError('name')}"
+                                        required>
+                                    <label for="floatingName">Nome *</label>
+                                    <div v-if="hasFieldError('name')" class="invalid-feedback">
+                                        Nome é obrigatório
                                     </div>
-                                    <div v-if="error" class="alert alert-danger" role="alert">
-                                        {{ error }}
-                                    </div>
-                                    <div v-if="success" class="alert alert-success" role="alert">
-                                        {{ success }}
-                                    </div>
-                                    <form v-else>
-                                        <p v-if="showAllFields"><strong>Inscreva-se a faça parte desta
-                                                comunidade</strong></p>
-                                        
-                                        <div v-if="showAllFields">
-                                            <div class="form-floating mb-2">
-                                                <input type="text" class="form-control" id="floatingName"
-                                                    placeholder="Nome" v-model="formData.name">
-                                                <label for="floatingName">Nome</label>
-                                            </div>
-                                            <div class="form-floating mb-2">
-                                                <input type="email" class="form-control" id="floatingInput"
-                                                    placeholder="name@example.com" v-model="formData.email">
-                                                <label for="floatingInput">E-mail</label>
-                                            </div>
-                                            <div class="form-floating mb-2">
-                                                <input type="tel" class="form-control" id="floatingPhone"
-                                                    v-model="formData.phone" @input="formatTelefone" value="Telefone">
-                                                <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
-                                            </div>
-                                            <div class="form-floating mb-2">
-                                                <input type="text" class="form-control" id="floatingName"
-                                                    placeholder="CPF" v-model="formData.cpf">
-                                                <label for="floatingName">CPF</label>
-                                            </div>
-                                        </div>
-                                   
-                                        <div class="form-floating mb-2">
-                                            <input type="password" class="form-control" id="floatingPassword"
-                                                placeholder="Password" v-model="formData.password"
-                                                @input="checkPasswordStrength">
-                                            <label for="floatingPassword">Senha</label>
-                                            <div v-if="passwordStrength && showAllFields"
-                                                :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
-                                                <span class="tooltip-trigger" @mouseenter="showTooltip"
-                                                    @mouseleave="hideTooltip">Senha {{
-                                                    passwordStrength }}</span>
-                                                <div v-show="showingTooltip" class="tooltip-content">
-                                                    Para que a senha seja forte, é preciso ter letra maiúscula,
-                                                    caractere especial e números!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
 
-                                <div class="modal-footer" v-if="!success">
-                                    <div>
-                                        <button v-if="showAllFields" class="btn btn-primary me-2"
-                                            @click="toggleFieldsVisibility">Já faço parte da
-                                            Creators.llc</button>
-                                        <button v-else-if="!showAllFields" class="btn btn-terciary me-2"
-                                            @click="toggleFieldsVisibility">Voltar</button>
-                                        <button v-if="!showAllFields" class="btn btn-terciary me-2"
-                                            @click="formForgot">Esqueci a senha</button>
-                                    </div>
-                                    <div>
-                                        <button
-                                            v-if="showAllFields && (formData.name === '' || formData.email === '' || (formData.phone === '' || formData.phone.length < 14) || formData.password === '')"
-                                            class="btn btn-terciary me-2" disabled>Próximo</button>
-                                        <button
-                                            v-else-if="!showAllFields && (formData.email === '' || formData.password === '')"
-                                            class="btn btn-primary me-2" disabled>Inscreva-se</button>
-                                        <button v-else-if="showAllFields" class="btn btn-primary me-2"
-                                          >Próximo</button>
-                                        <button v-else class="btn btn-primary me-2"
-                                            @click="formLogin">Inscreva-se</button>
+                                <div class="form-floating mb-3">
+                                    <input 
+                                        type="email" 
+                                        class="form-control" 
+                                        id="floatingEmail"
+                                        placeholder="name@example.com" 
+                                        v-model="formData.email"
+                                        :class="{'is-invalid': hasFieldError('email')}"
+                                        required>
+                                    <label for="floatingEmail">E-mail *</label>
+                                    <div v-if="hasFieldError('email')" class="invalid-feedback">
+                                        E-mail válido é obrigatório
                                     </div>
                                 </div>
+
+                                <div class="form-floating mb-3">
+                                    <input 
+                                        type="tel" 
+                                        class="form-control" 
+                                        id="floatingPhone"
+                                        placeholder="Telefone"
+                                        v-model="formData.phone" 
+                                        @input="formatTelefone"
+                                        :class="{'is-invalid': hasFieldError('phone')}"
+                                        maxlength="15"
+                                        required>
+                                    <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx *</label>
+                                    <div v-if="hasFieldError('phone')" class="invalid-feedback">
+                                        Telefone com DDD é obrigatório
+                                    </div>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="floatingCPF"
+                                        placeholder="CPF" 
+                                        v-model="formData.cpf"
+                                        @input="formatCPF"
+                                        :class="{'is-invalid': hasFieldError('cpf')}"
+                                        maxlength="14">
+                                    <label for="floatingCPF">CPF</label>
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3"  v-if="showAllFields">
+                                <input                                    
+                                    type="password" 
+                                    class="form-control" 
+                                    id="floatingPassword"
+                                    placeholder="Senha" 
+                                    v-model="formData.password"
+                                    @input="checkPasswordStrength"
+                                    :class="{'is-invalid': hasFieldError('password')}"
+                                    minlength="6"
+                                    required>
+                                <label for="floatingPassword">Senha *</label>
+                                <div v-if="hasFieldError('password')" class="invalid-feedback">
+                                    Senha é obrigatória (mínimo 6 caracteres)
+                                </div>
+                            </div>
+
+                            <div v-if="passwordStrength && showAllFields && formData.password" 
+                                 class="password-strength mb-3">
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2">Força da senha:</span>
+                                    <span class="badge"
+                                          :class="{
+                                              'bg-success': passwordStrength === 'Forte',
+                                              'bg-warning': passwordStrength === 'Média', 
+                                              'bg-danger': passwordStrength === 'Fraca'
+                                          }">
+                                        {{ passwordStrength }}
+                                    </span>
+                                    <i class="bi bi-info-circle ms-2 text-muted" 
+                                       @mouseenter="showTooltip"
+                                       @mouseleave="hideTooltip"
+                                       style="cursor: help;"></i>
+                                </div>
+                                
+                                <div v-show="showingTooltip" 
+                                     class="alert alert-info mt-2 small">
+                                    <strong>Para uma senha forte:</strong>
+                                    <ul class="mb-0 mt-1">
+                                        <li>Mínimo 8 caracteres</li>
+                                        <li>Letra maiúscula e minúscula</li>
+                                        <li>Pelo menos um número</li>
+                                        <li>Caractere especial (!@#$%^&*)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div v-if="!showAllFields" class="mb-3">
+                                <p class="mb-3"><strong>Para realizar a troca de senha, informe seu e-mail abaixo:</strong></p>
+                                
+                                <div class="form-floating mb-3">
+                                    <input 
+                                        type="email" 
+                                        class="form-control" 
+                                        id="loginEmail"
+                                        placeholder="name@example.com" 
+                                        v-model="formData.email"
+                                        :class="{'is-invalid': hasFieldError('email')}"
+                                        required>
+                                    <label for="loginEmail">E-mail *</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer" v-if="!success && !isLoading">
+                         <div class="d-flex justify-content-between w-100">
+                            <div>
+                                <button v-if="showAllFields" 
+                                        class="btn btn-secondary me-2"
+                                        @click="switchToLogin"
+                                        type="button">
+                                    Já tenho conta
+                                </button>
+                                <button v-else 
+                                        class="btn btn-secondary me-2"
+                                        @click="switchToRegister"
+                                        type="button">
+                                    Voltar ao cadastro
+                                </button>
+                                <button v-if="!showAllFields" 
+                                        class="btn btn-primary"
+                                        @click="formForgot"
+                                        type="button">
+                                        Enviar um link de troca de senha
+                                </button>
+                            </div>
+
+                            <div class="btn-group-end">
+                                <button v-if="showAllFields" 
+                                        class="btn"
+                                        :class="isRegistrationFormValid ? 'btn-primary' : 'btn-primary'"
+                                        :disabled="!isRegistrationFormValid"
+                                        @click="handleRegistration"
+                                        type="button">
+                                    <span v-if="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+                                    Cadastrar
+                                </button>
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal-footer" v-if="success">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
                 </nav>
             </header>
             <section class="first-section divider">
