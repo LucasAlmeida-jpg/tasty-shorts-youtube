@@ -1,6 +1,5 @@
 const { createApp } = Vue;
 
-// Constantes e configurações
 const API_BASE_URL = 'https://creators.llc/api';
 const ANALYTICS_ID = 'UA-90265209-1';
 const GTM_ID = 'GTM-58WRXZQ';
@@ -25,7 +24,6 @@ const PASSWORD_REQUIREMENTS = {
 createApp({
     data() {
         return {
-            // Estado da UI
             ui: {
                 loading: true,
                 video: false,
@@ -461,7 +459,7 @@ createApp({
         validateSocialMedia() {
             if (!Array.isArray(this.form.data.validacaoRedes) || 
                 this.form.data.validacaoRedes.length === 0) {
-                return true; // Permite envio sem redes sociais
+                return true;
             }
 
             const firstItem = this.form.data.validacaoRedes[0];
@@ -469,10 +467,9 @@ createApp({
                 return firstItem.socialMedia.trim() !== '' && firstItem.link.trim() !== '';
             }
             
-            return true; // Se não preencheu nada, está ok
+            return true; 
         },
 
-        // API - Autenticação
         async formLogin() {
             this.resetFormMessages();
             this.form.validation.isLoading = true;
@@ -737,7 +734,6 @@ createApp({
             return this.form.data;
         },
 
-        // UI State
         scrolled() {
             return this.ui.scrolled;
         },
@@ -786,7 +782,6 @@ createApp({
             return this.form.validation.selectedCount;
         },
 
-        // Verification
         inputCode() {
             return this.verification.inputCode;
         },
