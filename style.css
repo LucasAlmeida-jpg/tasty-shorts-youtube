@@ -157,6 +157,10 @@ a:hover {
   color: #222222;
 }
 
+.logo-mobile-sm {
+  display: none !important;
+}
+
 :root {
   --red: #F5383C;
   --yellow: #FAB555;
@@ -397,6 +401,9 @@ footer {
 }
 
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .logo-mobile-sm {
+    display: none !important;
+  }
   .main-image {
     width: 500px;
     max-width: 90%;
@@ -580,7 +587,9 @@ footer {
   .main-image {
     width: 375px;
   }
-
+  .logo-mobile-sm {
+    display: block !important;
+  }
   .nineth-section img {
     width: 375px;
   }

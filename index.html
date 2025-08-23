@@ -33,8 +33,8 @@
             <header>
                 <nav :style="navStyle" :class="{ scrolled: scrolled }" class="navbar navbar-expand-lg menu">
                     <div class="container d-flex justify-content-between">
-                        <img class="logo" src="./assets/main/youTube+creator-logo.png"
-                        alt="creators logo">
+                        <img class="logo logo-mobile-sm" src="./assets/main/youTube+creator-logo.png"
+                            alt="creators logo">
                         <button class="navbar-toggler" type="button" :class="{ active: isMenuOpen }" @click="toggleMenu"
                             data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -74,212 +74,171 @@
                         </div>
                     </div>
 
-                    <!-- Modal -->
                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-             aria-labelledby="exampleModalToggleLabel" tabindex="-1" data-bs-backdrop="false">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
-                            <img class="creators_logo" src="./assets/main/youTube+creator-logo.png" alt="Creators Logo">
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
+                        aria-labelledby="exampleModalToggleLabel" tabindex="-1" data-bs-backdrop="false">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
 
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-                        <div v-if="isLoading" class="text-center">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Carregando...</span>
-                            </div>
-                            <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
-                        </div>
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
+                                        <img class="creators_logo" src="./assets/main/youTube+creator-logo.png"
+                                            alt="Creators Logo">
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Fechar"></button>
+                                </div>
 
-                        <div v-if="error && !isLoading" class="alert alert-danger" role="alert">
-                            {{ error }}
-                        </div>
-
-                        <div v-if="success && !isLoading" class="alert alert-success" role="alert">
-                            {{ success }}
-                        </div>
-
-                        <form v-if="!success && !isLoading" @submit.prevent>
-                            <div v-if="showAllFields">
-                                <p class="mb-3"><strong>Inscreva-se e faça parte desta comunidade</strong></p>
-                                
-                                <div class="form-floating mb-3">
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="floatingName"
-                                        placeholder="Nome" 
-                                        v-model="formData.name"
-                                        :class="{'is-invalid': hasFieldError('name')}"
-                                        required>
-                                    <label for="floatingName">Nome *</label>
-                                    <div v-if="hasFieldError('name')" class="invalid-feedback">
-                                        Nome é obrigatório
+                                <div class="modal-body">
+                                    <div v-if="isLoading" class="text-center">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Carregando...</span>
+                                        </div>
+                                        <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
                                     </div>
-                                </div>
 
-                                <div class="form-floating mb-3">
-                                    <input 
-                                        type="email" 
-                                        class="form-control" 
-                                        id="floatingEmail"
-                                        placeholder="name@example.com" 
-                                        v-model="formData.email"
-                                        :class="{'is-invalid': hasFieldError('email')}"
-                                        required>
-                                    <label for="floatingEmail">E-mail *</label>
-                                    <div v-if="hasFieldError('email')" class="invalid-feedback">
-                                        E-mail válido é obrigatório
+                                    <div v-if="error && !isLoading" class="alert alert-danger" role="alert">
+                                        {{ error }}
                                     </div>
-                                </div>
 
-                                <div class="form-floating mb-3">
-                                    <input 
-                                        type="tel" 
-                                        class="form-control" 
-                                        id="floatingPhone"
-                                        placeholder="Telefone"
-                                        v-model="formData.phone" 
-                                        @input="formatTelefone"
-                                        :class="{'is-invalid': hasFieldError('phone')}"
-                                        maxlength="15"
-                                        required>
-                                    <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx *</label>
-                                    <div v-if="hasFieldError('phone')" class="invalid-feedback">
-                                        Telefone com DDD é obrigatório
+                                    <div v-if="success && !isLoading" class="alert alert-success" role="alert">
+                                        {{ success }}
                                     </div>
-                                </div>
 
-                                <div class="form-floating mb-3">
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="floatingCPF"
-                                        placeholder="CPF" 
-                                        v-model="formData.cpf"
-                                        @input="formatCPF"
-                                        :class="{'is-invalid': hasFieldError('cpf')}"
-                                        maxlength="14">
-                                    <label for="floatingCPF">CPF</label>
-                                </div>
-                            </div>
+                                    <form v-if="!success && !isLoading" @submit.prevent>
+                                        <div v-if="showAllFields">
+                                            <p class="mb-3"><strong>Inscreva-se e faça parte desta comunidade</strong>
+                                            </p>
 
-                            <div class="form-floating mb-3"  v-if="showAllFields">
-                                <input                                    
-                                    type="password" 
-                                    class="form-control" 
-                                    id="floatingPassword"
-                                    placeholder="Senha" 
-                                    v-model="formData.password"
-                                    @input="checkPasswordStrength"
-                                    :class="{'is-invalid': hasFieldError('password')}"
-                                    minlength="6"
-                                    required>
-                                <label for="floatingPassword">Senha *</label>
-                                <div v-if="hasFieldError('password')" class="invalid-feedback">
-                                    Senha é obrigatória (mínimo 6 caracteres)
-                                </div>
-                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingName"
+                                                    placeholder="Nome" v-model="formData.name"
+                                                    :class="{'is-invalid': hasFieldError('name')}" required>
+                                                <label for="floatingName">Nome *</label>
+                                                <div v-if="hasFieldError('name')" class="invalid-feedback">
+                                                    Nome é obrigatório
+                                                </div>
+                                            </div>
 
-                            <div v-if="passwordStrength && showAllFields && formData.password" 
-                                 class="password-strength mb-3">
-                                <div class="d-flex align-items-center">
-                                    <span class="me-2">Força da senha:</span>
-                                    <span class="badge"
-                                          :class="{
+                                            <div class="form-floating mb-3">
+                                                <input type="email" class="form-control" id="floatingEmail"
+                                                    placeholder="name@example.com" v-model="formData.email"
+                                                    :class="{'is-invalid': hasFieldError('email')}" required>
+                                                <label for="floatingEmail">E-mail *</label>
+                                                <div v-if="hasFieldError('email')" class="invalid-feedback">
+                                                    E-mail válido é obrigatório
+                                                </div>
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <input type="tel" class="form-control" id="floatingPhone"
+                                                    placeholder="Telefone" v-model="formData.phone"
+                                                    @input="formatTelefone"
+                                                    :class="{'is-invalid': hasFieldError('phone')}" maxlength="15"
+                                                    required>
+                                                <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx *</label>
+                                                <div v-if="hasFieldError('phone')" class="invalid-feedback">
+                                                    Telefone com DDD é obrigatório
+                                                </div>
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingCPF"
+                                                    placeholder="CPF" v-model="formData.cpf" @input="formatCPF"
+                                                    :class="{'is-invalid': hasFieldError('cpf')}" maxlength="14">
+                                                <label for="floatingCPF">CPF</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-floating mb-3" v-if="showAllFields">
+                                            <input type="password" class="form-control" id="floatingPassword"
+                                                placeholder="Senha" v-model="formData.password"
+                                                @input="checkPasswordStrength"
+                                                :class="{'is-invalid': hasFieldError('password')}" minlength="6"
+                                                required>
+                                            <label for="floatingPassword">Senha *</label>
+                                            <div v-if="hasFieldError('password')" class="invalid-feedback">
+                                                Senha é obrigatória (mínimo 6 caracteres)
+                                            </div>
+                                        </div>
+
+                                        <div v-if="passwordStrength && showAllFields && formData.password"
+                                            class="password-strength mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-2">Força da senha:</span>
+                                                <span class="badge" :class="{
                                               'bg-success': passwordStrength === 'Forte',
                                               'bg-warning': passwordStrength === 'Média', 
                                               'bg-danger': passwordStrength === 'Fraca'
                                           }">
-                                        {{ passwordStrength }}
-                                    </span>
-                                    <i class="bi bi-info-circle ms-2 text-muted" 
-                                       @mouseenter="showTooltip"
-                                       @mouseleave="hideTooltip"
-                                       style="cursor: help;"></i>
-                                </div>
-                                
-                                <div v-show="showingTooltip" 
-                                     class="alert alert-info mt-2 small">
-                                    <strong>Para uma senha forte:</strong>
-                                    <ul class="mb-0 mt-1">
-                                        <li>Mínimo 8 caracteres</li>
-                                        <li>Letra maiúscula e minúscula</li>
-                                        <li>Pelo menos um número</li>
-                                        <li>Caractere especial (!@#$%^&*)</li>
-                                    </ul>
-                                </div>
-                            </div>
+                                                    {{ passwordStrength }}
+                                                </span>
+                                                <i class="bi bi-info-circle ms-2 text-muted" @mouseenter="showTooltip"
+                                                    @mouseleave="hideTooltip" style="cursor: help;"></i>
+                                            </div>
 
-                            <div v-if="!showAllFields" class="mb-3">
-                                <p class="mb-3"><strong>Para realizar a troca de senha, informe seu e-mail abaixo:</strong></p>
-                                
-                                <div class="form-floating mb-3">
-                                    <input 
-                                        type="email" 
-                                        class="form-control" 
-                                        id="loginEmail"
-                                        placeholder="name@example.com" 
-                                        v-model="formData.email"
-                                        :class="{'is-invalid': hasFieldError('email')}"
-                                        required>
-                                    <label for="loginEmail">E-mail *</label>
+                                            <div v-show="showingTooltip" class="alert alert-info mt-2 small">
+                                                <strong>Para uma senha forte:</strong>
+                                                <ul class="mb-0 mt-1">
+                                                    <li>Mínimo 8 caracteres</li>
+                                                    <li>Letra maiúscula e minúscula</li>
+                                                    <li>Pelo menos um número</li>
+                                                    <li>Caractere especial (!@#$%^&*)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div v-if="!showAllFields" class="mb-3">
+                                            <p class="mb-3"><strong>Para realizar a troca de senha, informe seu e-mail
+                                                    abaixo:</strong></p>
+
+                                            <div class="form-floating mb-3">
+                                                <input type="email" class="form-control" id="loginEmail"
+                                                    placeholder="name@example.com" v-model="formData.email"
+                                                    :class="{'is-invalid': hasFieldError('email')}" required>
+                                                <label for="loginEmail">E-mail *</label>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
 
-                    <div class="modal-footer" v-if="!success && !isLoading">
-                         <div class="d-flex justify-content-between w-100">
-                            <div>
-                                <button v-if="showAllFields" 
-                                        class="btn btn-secondary me-2"
-                                        @click="switchToLogin"
-                                        type="button">
-                                    Já tenho conta
-                                </button>
-                                <button v-else 
-                                        class="btn btn-secondary me-2"
-                                        @click="switchToRegister"
-                                        type="button">
-                                    Voltar ao cadastro
-                                </button>
-                                <button v-if="!showAllFields" 
-                                        class="btn btn-primary"
-                                        @click="formForgot"
-                                        type="button">
-                                        Enviar um link de troca de senha
-                                </button>
-                            </div>
+                                <div class="modal-footer" v-if="!success && !isLoading">
+                                    <div class="d-flex justify-content-between w-100">
+                                        <div>
+                                            <button v-if="showAllFields" class="btn btn-secondary me-2"
+                                                @click="switchToLogin" type="button">
+                                                Já tenho conta
+                                            </button>
+                                            <button v-else class="btn btn-secondary me-2" @click="switchToRegister"
+                                                type="button">
+                                                Voltar ao cadastro
+                                            </button>
+                                            <button v-if="!showAllFields" class="btn btn-primary" @click="formForgot"
+                                                type="button">
+                                                Enviar um link de troca de senha
+                                            </button>
+                                        </div>
 
-                            <div class="btn-group-end">
-                                <button v-if="showAllFields" 
-                                        class="btn"
-                                        :class="isRegistrationFormValid ? 'btn-primary' : 'btn-primary'"
-                                        :disabled="!isRegistrationFormValid"
-                                        @click="handleRegistration"
-                                        type="button">
-                                    <span v-if="isLoading" class="spinner-border spinner-border-sm me-1"></span>
-                                    Cadastrar
-                                </button>
+                                        <div class="btn-group-end">
+                                            <button v-if="showAllFields" class="btn"
+                                                :class="isRegistrationFormValid ? 'btn-primary' : 'btn-primary'"
+                                                :disabled="!isRegistrationFormValid" @click="handleRegistration"
+                                                type="button">
+                                                <span v-if="isLoading"
+                                                    class="spinner-border spinner-border-sm me-1"></span>
+                                                Cadastrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer" v-if="success">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                        Fechar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-footer" v-if="success">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-                            Fechar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
                 </nav>
             </header>
             <section class="first-section divider">
@@ -290,10 +249,11 @@
                                 alt="imagem com descritivo tasty shorts BR">
                         </div>
                         <div class="col-md-6" data-aos="fade-down-left">
-                            <h1 class="youtube-sans-extrabold text-uppercase font-large line-height">Onde os sabores <br>
+                            <h1 class="youtube-sans-extrabold text-uppercase font-large line-height">Onde os sabores
+                                <br>
                                 encontram criadores</h1>
                             <h5 class="youtube-sans-bold my-3 font-medium">Um programa exclusivo para quem ama comer
-                                 bem, gravar e compartilhar.
+                                bem, gravar e compartilhar.
                             </h5>
                             <p class="youtube-sans-regular font-small">Se você é creator da Grande São Paulo, essa é sua
                                 chance de <br> transformar suas experiências
@@ -351,7 +311,8 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/2.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold">Comunidade</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">entre para um grupo seleto</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">entre para um grupo
+                                    seleto</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
@@ -365,7 +326,8 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/4.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold">Embaixadores</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">guiado por criadores experts</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">guiado por criadores
+                                    experts</p>
                             </div>
                         </div>
                     </div>
@@ -386,26 +348,36 @@
                             <div><img class="m-2" src="./assets/bachelors/1.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="youtube-sans-bold text-light font-small">Bia & Clara</h3>
-                                    <p class="youtube-sans-regular text-light font-extra-small">Somando mais de 7 milhões de <br> seguidores nas redes, Bia e Clara  <br> divertem seus seguidores com  <br> conteúdo de gastronomia, viagens e <br>  vida em família regado a muito <br>  humor e entretenimento.</p>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Somando mais de 7
+                                        milhões de <br> seguidores nas redes, Bia e Clara <br> divertem seus seguidores
+                                        com <br> conteúdo de gastronomia, viagens e <br> vida em família regado a muito
+                                        <br> humor e entretenimento.</p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/2.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="youtube-sans-bold text-light font-small">Thiago Quatroque</h3>
-                                    <p class="youtube-sans-regular text-light font-extra-small">Thiago compartilha receitas, reviews e <br> experiências gastronômicas com <br> estilo descontraído, conquistando <br> mais de 1,5 milhão de seguidores <br> engajados.
+                                    <p class="youtube-sans-regular text-light font-extra-small">Thiago compartilha
+                                        receitas, reviews e <br> experiências gastronômicas com <br> estilo
+                                        descontraído, conquistando <br> mais de 1,5 milhão de seguidores <br> engajados.
                                     </p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/3.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="youtube-sans-bold text-light font-small">Bia & Rafa</h3>
-                                    <p class="youtube-sans-regular text-light font-extra-small">Bia e Rafa exploram sabores pelo<br>  Brasil e pelo mundo, criando <br> conteúdos autênticos de <br> gastronomia, viagens e cultura que já <br> renderam milhões de visualizações.</p>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Bia e Rafa exploram
+                                        sabores pelo<br> Brasil e pelo mundo, criando <br> conteúdos autênticos de <br>
+                                        gastronomia, viagens e cultura que já <br> renderam milhões de visualizações.
+                                    </p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/4.png" alt="embaixador foto">
                                 <div class="info-tutor">
                                     <h3 class="youtube-sans-bold text-light font-small">Júlio Nascimento</h3>
-                                    <p class="youtube-sans-regular text-light font-extra-small">Julio Nascimento, criador do bordão<br> ‘FOOOMEEE!’, diverte sua comunidade <br>fiel com desafios e reviews <br>gastronômicos cheios de humor e <br>entretenimento.</p>
+                                    <p class="youtube-sans-regular text-light font-extra-small">Julio Nascimento,
+                                        criador do bordão<br> ‘FOOOMEEE!’, diverte sua comunidade <br>fiel com desafios
+                                        e reviews <br>gastronômicos cheios de humor e <br>entretenimento.</p>
                                 </div>
                             </div>
                         </div>
@@ -422,7 +394,8 @@
                     <div class="row">
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div data-aos="fade-down-right">
-                                <h1 class="youtube-sans-extrabold font-medium text-uppercase">O que você ganha com isso?</h1>
+                                <h1 class="youtube-sans-extrabold font-medium text-uppercase">O que você ganha com isso?
+                                </h1>
                             </div>
                             <div data-aos="fade-down-left">
                                 <img class="show-image" src="./assets/main/image-03.png" alt="">
@@ -468,7 +441,8 @@
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div data-aos="fade-down-right">
                                 <h1 class="youtube-sans-extrabold font-medium text-uppercase">Quem pode participar?</h1>
-                                <p class="youtube-sans-regular font-extra-small font-small font-tablet">Criadores que:</p>
+                                <p class="youtube-sans-regular font-extra-small font-small font-tablet">Criadores que:
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -476,51 +450,72 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/1.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter mais de 18 anos</b> <br class="show"><span class="youtube-sans-regular font-extra-small">no momento da inscrição</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter mais de 18
+                                        anos</b> <br class="show"><span class="youtube-sans-regular font-extra-small">no
+                                        momento da inscrição</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/2.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Morar em São Paulo</b><br class="show"><span class="youtube-sans-regular font-extra-small">ou na região metropolitana</span>
-                                </b>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Morar em São
+                                        Paulo</b><br class="show"><span class="youtube-sans-regular font-extra-small">ou
+                                        na região metropolitana</span>
+                                    </b>
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/3.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter no mínimo 5.000</b><br class="show"><span class="youtube-sans-regular font-extra-small">seguidores nas redes sociais</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter no mínimo
+                                        5.000</b><br class="show"><span
+                                        class="youtube-sans-regular font-extra-small">seguidores nas redes
+                                        sociais</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/4.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Interesse em</b><br class="show"><span class="youtube-sans-regular font-extra-small">gastronomia, cultura, lifestyle</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Interesse
+                                        em</b><br class="show"><span
+                                        class="youtube-sans-regular font-extra-small">gastronomia, cultura,
+                                        lifestyle</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/5.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Queremos diversidade</b><br class="show"><span class="youtube-sans-regular font-extra-small">perfis de rolê, opinião, vlog</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Queremos
+                                        diversidade</b><br class="show"><span
+                                        class="youtube-sans-regular font-extra-small">perfis de rolê, opinião,
+                                        vlog</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/6.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Shorts elegíveis</b><br class="show"><span class="youtube-sans-regular font-extra-small">dentro das regras do YouTube</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Shorts
+                                        elegíveis</b><br class="show"><span
+                                        class="youtube-sans-regular font-extra-small">dentro das regras do
+                                        YouTube</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/7.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Criadores ativos </b><br class="show"><span class="youtube-sans-regular font-extra-small">nos últimos 30 dias</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Criadores ativos
+                                    </b><br class="show"><span class="youtube-sans-regular font-extra-small">nos últimos
+                                        30 dias</span></p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/8.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Não ter strike ativo </b><br class="show"><span class="youtube-sans-regular font-extra-small">na plataforma do YouTube</span></p>
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Não ter strike
+                                        ativo </b><br class="show"><span
+                                        class="youtube-sans-regular font-extra-small">na plataforma do YouTube</span>
+                                </p>
                             </div>
                         </div>
                         <!-- <div class="col-md-4 d-flex justify-content-center" data-aos="flip-right">
@@ -546,7 +541,8 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Inscrições abertas</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 30 de Agosto de 2025
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 30 de Agosto de
+                                    2025
                                 </p>
                             </div>
                         </div>
@@ -554,7 +550,8 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/2.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Início de setembro</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">Onboarding e primeiras
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Onboarding e
+                                    primeiras
                                     aulas</p>
                             </div>
                         </div>
@@ -562,7 +559,8 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/3.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Setembro e outubro</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">3 desafios com prêmios
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">3 desafios com
+                                    prêmios
                                 </p>
                             </div>
                         </div>
@@ -570,7 +568,8 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/4.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Final de outubro</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">seleção e vencedores</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">seleção e vencedores
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -587,7 +586,8 @@
                                 <div @click="toggleAccordion(index)" class="accordion-header">
                                     {{ item.title }}
                                     <span :class="{ 'rotate-arrow': activeIndex === index }">&#9660;</span>
-                                </div> <hr v-if="activeIndex === index" >
+                                </div>
+                                <hr v-if="activeIndex === index">
                                 <div v-if="activeIndex === index" v-html="item.content"></div>
                             </div>
                         </div>
@@ -601,7 +601,8 @@
                             <p class="youtube-sans-regular font-small"><b>Faça Parte dessa Comunidade e faça parte do
                                     Tasty Shorts
                                     BR</b></p>
-                            <p class="youtube-sans-regular">Se você quer transformar seus vídeos em visibilidade, prêmios
+                            <p class="youtube-sans-regular">Se você quer transformar seus vídeos em visibilidade,
+                                prêmios
                                 e <br> oportunidades com o YouTube, essa é a sua chance.</p>
                             <button class="btn btn-primary modal-primary-button" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle">QUERO PARTICIPAR</button>
@@ -628,13 +629,16 @@
                                             participar</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer youtube-sans-semibold" href="#embaixadores">Embaixadores</a>
+                                        <a class="info-footer youtube-sans-semibold"
+                                            href="#embaixadores">Embaixadores</a>
                                     </div>
                                     <div>
                                         <a class="info-footer youtube-sans-semibold" href="#premiacao">Premiação</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer youtube-sans-semibold" href="./assets/regulamento/regulamento_tasty.pdf" target="_blank">Regulamento</a>
+                                        <a class="info-footer youtube-sans-semibold"
+                                            href="./assets/regulamento/regulamento_tasty.pdf"
+                                            target="_blank">Regulamento</a>
                                     </div>
                                     <div>
                                         <a class="info-footer youtube-sans-semibold" href="#faq">FAQ</a>
@@ -643,10 +647,12 @@
                             </div>
                             <div class="text-end">
                                 <div>
-                                    <img class="mb-2" style="width: 160px;" src="./assets/main/logo_powered.png" alt="logo_creators">
+                                    <img class="mb-2" style="width: 160px;" src="./assets/main/logo_powered.png"
+                                        alt="logo_creators">
                                 </div>
                                 <div>
-                                    <a class="youtube-sans-semibold" href="mailto:academy@creators.llc">Fale conosco | academy@creators.llc</a>
+                                    <a class="youtube-sans-semibold" href="mailto:academy@creators.llc">Fale conosco |
+                                        academy@creators.llc</a>
                                 </div>
                             </div>
                         </div>
