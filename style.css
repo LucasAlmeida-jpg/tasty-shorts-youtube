@@ -109,7 +109,10 @@ a:hover {
 .text-roboto-bold {
   font-family: 'roboto bold';
 }
-
+.modal {
+  backdrop-filter: blur(2px) !important;
+background-color: rgba(0, 0, 0, 0.5) !important;
+}
 .text-roboto-regular {
   font-family: 'roboto regular';
 }
@@ -147,6 +150,7 @@ a:hover {
   bottom: 18px;
   left: 28px;
 }
+
 .nav-link {
   color: #222222;
 }
@@ -215,7 +219,8 @@ nav.scrolled {
   padding: 15px 35px;
   font-family: 'youtube-sans-bold';
 }
-.btn-secondary{
+
+.btn-secondary {
   color: white;
   border: 1px solid;
   border-radius: 60px;
@@ -421,6 +426,7 @@ footer {
     font-size: 14px;
   }
 
+ 
   .btn-primary {
     font-size: 14px;
     padding: 12px 30px;
@@ -747,5 +753,14 @@ footer {
     transform: translateX(-50%);
     border: 5px solid transparent;
     border-top-color: #333;
+  }
+
+  .text-end {
+    text-align: center !important;
+  }
+  .modal {
+    height: 100vh;
+    backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.5);
   }
 }
