@@ -502,13 +502,15 @@ footer {
     z-index: 1 !important;
     left: 20px;
     width: 200px;
-    top: 25px;
+    top: 17px;
   }
 
   .navbar.scrolled {
     padding-bottom: 54px !important;
   }
-
+.text-end {
+  display: none;
+}
   footer .d-flex {
     display: flex !important;
     justify-content: space-around;
@@ -723,7 +725,7 @@ footer {
     z-index: 1 !important;
     left: 13px;
     width: 232px;
-    top: 20px;
+    top: 9px;
   }
 
   .creators_logo {
