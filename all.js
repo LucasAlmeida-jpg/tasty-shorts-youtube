@@ -4,7 +4,7 @@ const API_BASE_URL = 'https://creators.llc/api';
 const ANALYTICS_ID = 'UA-90265209-1';
 const GTM_ID = 'GTM-58WRXZQ';
 
-const SOCIAL_MEDIA_URLS = {
+const socialMediaUrls = {
     instagram: 'https://www.instagram.com/',
     youtube: 'https://www.youtube.com/',
     tiktok: 'https://www.tiktok.com/',
@@ -26,7 +26,6 @@ createApp({
         return {
             ui: {
                 loading: true,
-                video: false,
                 showModal: false,
                 isMenuOpen: false,
                 scrolled: false,
@@ -154,7 +153,6 @@ createApp({
         initializeApp() {
             this.loadAnalytics();
             this.setupEventListeners();
-            this.initializeVideo();
             this.initializeAnimations();
         },
 
@@ -166,13 +164,6 @@ createApp({
         setupEventListeners() {
             document.addEventListener('click', this.handleClickOutside);
             window.addEventListener('scroll', this.handleScroll);
-        },
-
-        initializeVideo() {
-            const preview = this.$refs.preview;
-            if (preview) {
-                preview.play();
-            }
         },
 
         initializeAnimations() {
@@ -229,86 +220,6 @@ createApp({
             this.activeIndex = this.activeIndex === index ? null : index;
         },
 
-        playVideo() {
-            this.ui.video = true;
-            this.ui.loading = false;
-
-            this.pausePreview();
-            this.$nextTick(() => {
-                this.startMainVideo();
-            });
-        },
-
-        pausePreview() {
-            if (this.$refs.preview) {
-                this.$refs.preview.pause();
-            }
-        },
-
-        startMainVideo() {
-            const mainVideo = this.$refs.video;
-            if (mainVideo) {
-                mainVideo.volume = 0.7;
-                mainVideo.play();
-                this.goFullScreen('myVideo');
-            }
-        },
-
-        paused() {
-            this.ui.video = false;
-            if (this.$refs.preview) {
-                this.$refs.preview.play();
-            }
-        },
-
-        closeFullscreen() {
-            this.ui.video = false;
-            this.exitFullscreen();
-        },
-
-        exitFullscreen() {
-            const exitMethods = [
-                'exitFullscreen',
-                'webkitExitFullscreen',
-                'msExitFullscreen'
-            ];
-
-            exitMethods.forEach(method => {
-                if (document[method]) {
-                    document[method]();
-                }
-            });
-        },
-
-        goFullScreen(id) {
-            const element = document.getElementById(id);
-            if (!element) return;
-
-            if (this.isIOS()) {
-                element.play();
-            } else {
-                this.requestFullscreen(element);
-            }
-        },
-
-        isIOS() {
-            return /iPad|iPhone|iPod/.test(navigator.platform);
-        },
-
-        requestFullscreen(element) {
-            const fullscreenMethods = [
-                'requestFullscreen',
-                'mozRequestFullScreen',
-                'webkitRequestFullScreen'
-            ];
-
-            fullscreenMethods.forEach(method => {
-                if (element[method]) {
-                    element[method]();
-                }
-            });
-        },
-
         formatPhone() {
             let phone = this.form.data.phone.replace(/\D/g, '');
             
@@ -329,69 +240,9 @@ createApp({
             this.formatPhone();
         },
 
-        hasFieldError(fieldName) {
-            if (!this.form.validation.error) return false;
-            
-            const requiredFields = {
-                name: () => !this.form.data.name.trim(),
-                email: () => !this.form.data.email.trim() || !this.isValidEmail(this.form.data.email),
-                phone: () => !this.form.data.phone.trim() || this.form.data.phone.length < 14,
-                password: () => !this.form.data.password.trim() || this.form.data.password.length < 6,
-                cpf: () => this.form.data.cpf && !this.isValidCPF(this.form.data.cpf)
-            };
-
-            return requiredFields[fieldName] ? requiredFields[fieldName]() : false;
-        },
-
         isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
-        },
-
-        isValidCPF(cpf) {
-            cpf = cpf.replace(/[^\d]/g, '');
-            
-            if (cpf.length !== 11) return false;
-            
-            if (/^(\d)\1{10}$/.test(cpf)) return false;
-            
-            let sum = 0;
-            let remainder;
-            
-            for (let i = 1; i <= 9; i++) {
-                sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-            }
-            
-            remainder = (sum * 10) % 11;
-            if (remainder === 10 || remainder === 11) remainder = 0;
-            if (remainder !== parseInt(cpf.substring(9, 10))) return false;
-            
-            sum = 0;
-            for (let i = 1; i <= 10; i++) {
-                sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-            }
-            
-            remainder = (sum * 10) % 11;
-            if (remainder === 10 || remainder === 11) remainder = 0;
-            if (remainder !== parseInt(cpf.substring(10, 11))) return false;
-            
-            return true;
-        },
-
-        switchToLogin() {
-            this.resetFormMessages();
-            this.ui.showAllFields = false;
-        },
-
-        switchToRegister() {
-            this.resetFormMessages();
-            this.ui.showAllFields = true;
-        },
-
-        handleRegistration() {
-            if (this.isRegistrationFormValid) {
-                this.formCreateUser();
-            }
         },
 
         checkPasswordStrength() {
@@ -416,14 +267,6 @@ createApp({
             }
         },
 
-        showTooltip() {
-            this.ui.showingTooltip = true;
-        },
-
-        hideTooltip() {
-            this.ui.showingTooltip = false;
-        },
-
         addSocialMedia() {
             if (this.form.data.validacaoRedes.length < 2) {
                 this.form.data.validacaoRedes.push({ socialMedia: '', link: '' });
@@ -437,7 +280,7 @@ createApp({
         },
 
         getBaseLink(socialMedia) {
-            return SOCIAL_MEDIA_URLS[socialMedia] || '';
+            return socialMediaUrls[socialMedia] || '';
         },
 
         validateSocialMedia() {
@@ -452,22 +295,6 @@ createApp({
             }
             
             return true; 
-        },
-
-        async formLogin() {
-            this.resetFormMessages();
-            this.form.validation.isLoading = true;
-
-            try {
-                const response = await this.makeAPIRequest('/auth/login', {
-                    method: 'POST',
-                    body: JSON.stringify(this.form.data)
-                });
-
-                await this.handleLoginResponse(response);
-            } catch (error) {
-                this.handleLoginError(error);
-            }
         },
 
         async handleLoginResponse(response) {
@@ -503,16 +330,16 @@ createApp({
             if (!this.validateForm()) {
                 return;
             }
-
+        
             this.form.validation.isLoading = true;
             this.form.data.date_subscription = this.getCurrentDate();
-
+        
             try {
                 const response = await this.makeAPIRequest('/v1/users', {
                     method: 'POST',
                     body: JSON.stringify(this.form.data)
                 });
-
+        
                 const data = await response.json();
                 
                 if (data.error) {
@@ -521,19 +348,24 @@ createApp({
                     await this.formUpdateUser(data.data.access_token, data.data.user.id);
                 }
             } catch (error) {
-                this.form.validation.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+                this.form.validation.error = 'Ocorreu um erro inesperado.';
                 this.form.validation.isLoading = false;
             }
         },
-
+        
         handleCreateUserError(error) {
             if (error.email && Array.isArray(error.email) && error.email.length > 0) {
                 this.form.validation.error = error.email[0];
+            } else if (error.password && Array.isArray(error.password) && error.password.length > 0) {
+                this.form.validation.error = error.password[0];
+            } else if (error.specialities && Array.isArray(error.specialities) && error.specialities.length > 0) {
+                this.form.validation.error = error.specialities[0];
             } else {
-                this.form.validation.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+                this.form.validation.error = 'Erro de validação desconhecido.';
             }
+        
             this.form.validation.isLoading = false;
-        },
+        },        
 
         async formUpdateUser(token, id) {
             this.prepareSocialMediaData();
@@ -550,7 +382,7 @@ createApp({
                 const data = await response.json();
                 
                 if (data.error) {
-                    this.form.validation.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+                    this.form.validation.error = data.error.specialities[0];
                 } else {
                     this.form.validation.success = 'Inscrição efetuada com sucesso!';
                     setTimeout(() => window.location.reload(), 1000);
@@ -640,15 +472,6 @@ createApp({
             this.ui.showAllFields = !this.ui.showAllFields;
         },
 
-        verifyCode() {
-            if (this.verification.inputCode === this.verification.correctCode) {
-                this.ui.isBlocked = false;
-                localStorage.setItem('isAuthenticated', true);
-            } else {
-                this.verification.errorMessage = 'Senha incorreta. Tente novamente.';
-            }
-        },
-
         toggleReturn() {
             this.resetFormMessages();
         },
@@ -692,10 +515,7 @@ createApp({
             return this.verticals.filter(v => selectedIds.includes(v.id));
         },
 
-        isFormValid() {
-            const socialMedia = this.validateSocialMedia();
-            return [socialMedia];
-        },
+
 
         navStyle() {
             const baseStyle = { backgroundColor: "#FFFFFF" };
@@ -732,10 +552,6 @@ createApp({
 
         showingTooltip() {
             return this.ui.showingTooltip;
-        },
-
-        video() {
-            return this.ui.video;
         },
 
         loading() {
@@ -777,20 +593,5 @@ createApp({
         vertical() {
             return this.verticals;
         },
-
-        isRegistrationFormValid() {
-            return this.form.data.name.trim() && 
-                   this.isValidEmail(this.form.data.email) &&
-                   this.form.data.phone.trim() && 
-                   this.form.data.phone.length >= 14 &&
-                   this.form.data.password.trim() && 
-                   this.form.data.password.length >= 6;
-        },
-
-        isLoginFormValid() {
-            return this.isValidEmail(this.form.data.email) && 
-                   this.form.data.password.trim() && 
-                   this.form.data.password.length >= 6;
-        }
     }
 }).mount('#app');
