@@ -416,6 +416,9 @@ createApp({
                 
                 if (data.data?.message) {
                     this.form.validation.success = data.data.message;
+                    setTimeout(() => {
+                        location.reload();                
+                    }, 1000);
                 } else {
                     throw new Error('Resposta do servidor incompleta');
                 }
