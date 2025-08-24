@@ -74,20 +74,16 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                        aria-labelledby="exampleModalToggleLabel" tabindex="-1" data-bs-backdrop="false">
+                    <div class="modal fade" data-bs-backdrop="false" id="exampleModalToggle" aria-hidden="true"
+                        aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
-                                        <img class="creators_logo" src="./assets/main/youTube+creator-logo.png"
-                                            alt="Creators Logo">
-                                    </h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel"><img
+                                            src="assets/main/youTube+creator-logo.png" alt=""></h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Fechar"></button>
+                                        aria-label="Close"></button>
                                 </div>
-
                                 <div class="modal-body">
                                     <div v-if="isLoading" class="text-center">
                                         <div class="spinner-border text-primary" role="status">
@@ -95,146 +91,171 @@
                                         </div>
                                         <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
                                     </div>
-
-                                    <div v-if="error && !isLoading" class="alert alert-danger" role="alert">
+                                    <div v-if="error" class="alert alert-danger" role="alert">
                                         {{ error }}
                                     </div>
-
-                                    <div v-if="success && !isLoading" class="alert alert-success" role="alert">
+                                    <div v-if="success" class="alert alert-success" role="alert">
                                         {{ success }}
                                     </div>
-
-                                    <form v-if="!success && !isLoading" @submit.prevent>
-                                        <div v-if="showAllFields">
-                                            <p class="mb-3"><strong>Inscreva-se e faça parte desta comunidade</strong>
-                                            </p>
-
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingName"
-                                                    placeholder="Nome" v-model="formData.name"
-                                                    :class="{'is-invalid': hasFieldError('name')}" required>
-                                                <label for="floatingName">Nome *</label>
-                                                <div v-if="hasFieldError('name')" class="invalid-feedback">
-                                                    Nome é obrigatório
-                                                </div>
-                                            </div>
-
-                                            <div class="form-floating mb-3">
-                                                <input type="email" class="form-control" id="floatingEmail"
-                                                    placeholder="name@example.com" v-model="formData.email"
-                                                    :class="{'is-invalid': hasFieldError('email')}" required>
-                                                <label for="floatingEmail">E-mail *</label>
-                                                <div v-if="hasFieldError('email')" class="invalid-feedback">
-                                                    E-mail válido é obrigatório
-                                                </div>
-                                            </div>
-
-                                            <div class="form-floating mb-3">
-                                                <input type="tel" class="form-control" id="floatingPhone"
-                                                    placeholder="Telefone" v-model="formData.phone"
-                                                    @input="formatTelefone"
-                                                    :class="{'is-invalid': hasFieldError('phone')}" maxlength="15"
-                                                    required>
-                                                <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx *</label>
-                                                <div v-if="hasFieldError('phone')" class="invalid-feedback">
-                                                    Telefone com DDD é obrigatório
-                                                </div>
-                                            </div>
-
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingCPF"
-                                                    placeholder="CPF" v-model="formData.cpf" @input="formatCPF"
-                                                    :class="{'is-invalid': hasFieldError('cpf')}" maxlength="14">
-                                                <label for="floatingCPF">CPF</label>
-                                            </div>
+                                    <form v-else>
+                                        <p v-if="showAllFields"><strong>Faça o cadastro para se inscrever</strong></p>
+                                        <p v-else-if="!showAllFields">Para realizar a troca de senha, informe seu e-mail
+                                            abaixo:</p>
+                                        <div v-if="showAllFields" class="form-floating mb-2">
+                                            <input type="text" class="form-control" id="floatingName" placeholder="Nome"
+                                                v-model="formData.name">
+                                            <label for="floatingName">Nome</label>
                                         </div>
-
-                                        <div class="form-floating mb-3" v-if="showAllFields">
+                                        <div class="form-floating mb-2">
+                                            <input type="email" class="form-control" id="floatingInput"
+                                                placeholder="name@example.com" v-model="formData.email">
+                                            <label for="floatingInput">E-mail</label>
+                                        </div>
+                                        <div v-if="showAllFields" class="form-floating mb-2">
+                                            <input type="tel" class="form-control" id="floatingPhone"
+                                                v-model="formData.phone" @input="formatTelefone" value="Telefone">
+                                            <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
+                                        </div>
+                                        <div v-if="showAllFields" class="form-floating mb-2">
                                             <input type="password" class="form-control" id="floatingPassword"
-                                                placeholder="Senha" v-model="formData.password"
-                                                @input="checkPasswordStrength"
-                                                :class="{'is-invalid': hasFieldError('password')}" minlength="6"
-                                                required>
-                                            <label for="floatingPassword">Senha *</label>
-                                            <div v-if="hasFieldError('password')" class="invalid-feedback">
-                                                Senha é obrigatória (mínimo 6 caracteres)
-                                            </div>
-                                        </div>
-
-                                        <div v-if="passwordStrength && showAllFields && formData.password"
-                                            class="password-strength mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <span class="me-2">Força da senha:</span>
-                                                <span class="badge" :class="{
-                                              'bg-success': passwordStrength === 'Forte',
-                                              'bg-warning': passwordStrength === 'Média', 
-                                              'bg-danger': passwordStrength === 'Fraca'
-                                          }">
-                                                    {{ passwordStrength }}
-                                                </span>
-                                                <i class="bi bi-info-circle ms-2 text-muted" @mouseenter="showTooltip"
-                                                    @mouseleave="hideTooltip" style="cursor: help;"></i>
-                                            </div>
-
-                                            <div v-show="showingTooltip" class="alert alert-info mt-2 small">
-                                                <strong>Para uma senha forte:</strong>
-                                                <ul class="mb-0 mt-1">
-                                                    <li>Mínimo 8 caracteres</li>
-                                                    <li>Letra maiúscula e minúscula</li>
-                                                    <li>Pelo menos um número</li>
-                                                    <li>Caractere especial (!@#$%^&*)</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div v-if="!showAllFields" class="mb-3">
-                                            <p class="mb-3"><strong>Para realizar a troca de senha, informe seu e-mail
-                                                    abaixo:</strong></p>
-
-                                            <div class="form-floating mb-3">
-                                                <input type="email" class="form-control" id="loginEmail"
-                                                    placeholder="name@example.com" v-model="formData.email"
-                                                    :class="{'is-invalid': hasFieldError('email')}" required>
-                                                <label for="loginEmail">E-mail *</label>
+                                                placeholder="Password" v-model="formData.password"
+                                                @input="checkPasswordStrength">
+                                            <label for="floatingPassword">Senha</label>
+                                            <div v-if="passwordStrength && showAllFields"
+                                                :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
                                             </div>
                                         </div>
                                     </form>
+
                                 </div>
 
-                                <div class="modal-footer" v-if="!success && !isLoading">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <div>
-                                            <button v-if="showAllFields" class="btn btn-secondary me-2"
-                                                @click="switchToLogin" type="button">
-                                                Já tenho conta
-                                            </button>
-                                            <button v-else class="btn btn-secondary me-2" @click="switchToRegister"
-                                                type="button">
-                                                Voltar ao cadastro
-                                            </button>
-                                            <button v-if="!showAllFields" class="btn btn-primary" @click="formForgot"
-                                                type="button">
-                                                Enviar um link de troca de senha
-                                            </button>
-                                        </div>
-
-                                        <div class="btn-group-end">
-                                            <button v-if="showAllFields" class="btn"
-                                                :class="isRegistrationFormValid ? 'btn-primary' : 'btn-primary'"
-                                                :disabled="!isRegistrationFormValid" @click="handleRegistration"
-                                                type="button">
-                                                <span v-if="isLoading"
-                                                    class="spinner-border spinner-border-sm me-1"></span>
-                                                Cadastrar
-                                            </button>
-                                        </div>
+                                <div class="modal-footer" v-if="!success">
+                                    <div>
+                                        <button v-if="showAllFields"
+                                            class="btn btn-primary me-2 d-flex align-items-center"
+                                            @click="toggleFieldsVisibility">Já faço parte da Creators.llc <span><img
+                                                    class="btn-image ms-1"
+                                                    src="https://storage.googleapis.com/creators-static-1/images/logo-sm.svg"
+                                                    alt=""></span></button>
+                                        <button v-else-if="!showAllFields" class="btn btn-secondary me-2"
+                                            @click="toggleFieldsVisibility">Voltar ao cadastro</button>
+                                        <button v-if="!showAllFields" class="btn btn-primary me-2"
+                                            @click="formForgot">Enviar um link de troca de senha</button>
+                                    </div>
+                                    <div>
+                                        <button
+                                            v-if="showAllFields && (formData.name === '' || formData.email === '' || (formData.phone === '' || formData.phone.length < 14) || formData.password === '')"
+                                            class="btn btn-secondary me-2" disabled>Próximo</button>
+                                        <button v-else-if="showAllFields" class="btn btn-secondary  me-2"
+                                            data-bs-target="#exampleModalToggle2"
+                                            data-bs-toggle="modal">Próximo</button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" data-bs-backdrop="false" id="exampleModalToggle2" aria-hidden="true"
+                        aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2"><img
+                                            src="assets/main/youTube+creator-logo.png" alt="">
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div v-if="isLoading" class="text-center">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Carregando...</span>
+                                        </div>
+                                        <p class="mt-2">Aguarde enquanto processamos sua inscrição...</p>
+                                    </div>
+                                    <div v-if="error" class="alert alert-danger" role="alert">
+                                        {{ error }}
+                                    </div>
+                                    <div v-if="success" class="alert alert-success" role="alert">
+                                        {{ success }}
+                                    </div>
+                                    <form v-else>
+                                        <div class="container">
+                                            <span class="mb-2">Selecione as verticais do seu conteúdo</span>
+                                            <div class="row border mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(0, 4)"
+                                                        :key="v.id">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            :id="'checkbox-' + v.name" :value="v.id"
+                                                            v-model="formData.specialities"
+                                                            @change="updateSelectedCount" />
+                                                        <label class="form-check-label" :for="'checkbox-' + v.name">{{
+                                                            v.name }}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(4)" :key="v.id">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            :id="'checkbox-' + v.name" :value="v.id"
+                                                            v-model="formData.specialities"
+                                                            @change="updateSelectedCount" />
+                                                        <label class="form-check-label" :for="'checkbox-' + v.name">{{
+                                                            v.name }}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="my-4" v-for="(item, index) in formData.validacaoRedes"
+                                                :key="index">
+                                                <label class="font-label">Escolha sua rede:</label>
+                                                <div class="form-floating mb-2">
+                                                        <select v-model="item.socialMedia"
+                                                            class="form-select form-select-sm"
+                                                            aria-label=".form-select-sm example">
+                                                            <option value="" disabled selected>Escolha sua rede</option>
+                                                            <option value="instagram">Instagram</option>
+                                                            <option value="tiktok">TikTok</option>
+                                                            <option value="youtube">Youtube</option>
+                                                        </select>
+                                                    </div>
+                                                    <div v-if="item.socialMedia !== ''">
+                                                        <label class="font-label"
+                                                            :for="'socialMediaInput' + index">Link:</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="form-control link">{{
+                                                                    getBaseLink(item.socialMedia)
+                                                                    }}</span>
+                                                            </div>
+                                                            <input v-model="item.link" type="text"
+                                                                :id="'socialMediaInput' + index"
+                                                                class="form-control link">
+                                                        </div>
+                                                    </div>
+                                                    <button @click="removeSocialMedia(index)"
+                                                        v-if="formData.validacaoRedes.length > 2">Remover</button>
+                                                </div>
 
-                                <div class="modal-footer" v-if="success">
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-                                        Fechar
-                                    </button>
+                                                <span class="span-list" @click="addSocialMedia"
+                                                    v-if="formData.validacaoRedes.length < 2">Adicionar rede social +
+                                                </span>
+                                                <span class="span-list" @click="removeSocialMedia"
+                                                    v-if="formData.validacaoRedes.length == 2">Remover rede social -
+                                                </span>
+                                            </div>
+
+                                            <div class="custom-checkbox mb-4">
+                                                <input type="checkbox" class="mt-4" checked> Li e concordo com os <span
+                                                    class="span-lista"> <a href="https://creators.llc/termos/"
+                                                        target="_blank">Termos de
+                                                        uso</a></span>
+                                            </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" v-if="!success">
+                                    <button class="btn btn-primary" @click="toggleReturn"
+                                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Voltar</button>
+                                    <button class="btn btn-secondary" @click="formCreateUser">Cadastrar</button>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +272,8 @@
                         <div class="col-md-6" data-aos="fade-down-left">
                             <h1 class="youtube-sans-extrabold text-uppercase font-large line-height">Onde os sabores
                                 <br>
-                                encontram criadores</h1>
+                                encontram criadores
+                            </h1>
                             <h5 class="youtube-sans-bold my-3 font-medium">Um programa exclusivo para quem ama comer
                                 bem, gravar e compartilhar.
                             </h5>
@@ -351,7 +373,8 @@
                                     <p class="youtube-sans-regular text-light font-extra-small">Somando mais de 7
                                         milhões de <br> seguidores nas redes, Bia e Clara <br> divertem seus seguidores
                                         com <br> conteúdo de gastronomia, viagens e <br> vida em família regado a muito
-                                        <br> humor e entretenimento.</p>
+                                        <br> humor e entretenimento.
+                                    </p>
                                 </div>
                             </div>
                             <div><img class="m-2" src="./assets/bachelors/2.png" alt="embaixador foto">
@@ -407,22 +430,23 @@
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Certificado</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">Com creators
-                                    especialistas</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Oficial do Youtube
+                                    Brasil</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/2.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Acesso</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced"> a eventos</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Comunidade e Eventos
+                                    Exclusivos</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/3.png" alt="Ícone" class="icon-img">
-                                <h5 class="youtube-sans-bold mt-3">Kit creator</h5>
-                                <p class="youtube-sans-regular  font-extra-small line-height-forced">exclusivo</p>
+                                <h5 class="youtube-sans-bold mt-3">Gifts Youtube</h5>
+                                <p class="youtube-sans-regular  font-extra-small line-height-forced">exclusivos</p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
@@ -492,7 +516,7 @@
                                         vlog</span></p>
                             </div>
                         </div>
-                        <div class="col-md-3" data-aos="flip-right">
+                        <!-- <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/6.png" alt="Ícone" class="icon-img">
                                 <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Shorts
@@ -500,7 +524,7 @@
                                         class="youtube-sans-regular font-extra-small">dentro das regras do
                                         YouTube</span></p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/7.png" alt="Ícone" class="icon-img">
@@ -558,9 +582,9 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/3.png" alt="Ícone" class="icon-img">
-                                <h5 class="youtube-sans-bold mt-3">Setembro e outubro</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">3 desafios com
-                                    prêmios
+                                <h5 class="youtube-sans-bold mt-3">Setembro a outubro</h5>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">
+                                    4 aulas e 4 desafios com prêmios
                                 </p>
                             </div>
                         </div>

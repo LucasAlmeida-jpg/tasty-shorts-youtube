@@ -93,7 +93,7 @@ createApp({
                 },
                 {
                     title: 'Como faço para me inscrever?',
-                    content: 'Preencha o <u>Formulário de Seleção</u> (link! do modal) e analisaremos sua inscrição.'
+                    content: 'Preencha o <u data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Formulário de Seleção</u> e analisaremos sua inscrição.'
                 },
                 {
                     title: 'Para ser selecionado/a, preciso postar só sobre comida?',
@@ -327,22 +327,6 @@ createApp({
 
         formatTelefone() {
             this.formatPhone();
-        },
-
-        formatCPF() {
-            let cpf = this.form.data.cpf.replace(/\D/g, '');
-            
-            if (cpf.length > 3) {
-                cpf = cpf.substring(0, 3) + '.' + cpf.substring(3);
-            }
-            if (cpf.length > 7) {
-                cpf = cpf.substring(0, 7) + '.' + cpf.substring(7);
-            }
-            if (cpf.length > 11) {
-                cpf = cpf.substring(0, 11) + '-' + cpf.substring(11, 13);
-            }
-            
-            this.form.data.cpf = cpf.substring(0, 14);
         },
 
         hasFieldError(fieldName) {
