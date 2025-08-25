@@ -95,17 +95,17 @@ createApp({
                     content: 'Preencha o <u data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Formulário de Seleção</u> e analisaremos sua inscrição.'
                 },
                 {
+                    title: 'Sou iniciante, posso participar?',
+                    content: 'Se você tem 5k+ seguidores e publica com frequência, sim! Não exigimos experiência prévia com gastronomia.'
+                },
+                {
                     title: 'Para ser selecionado/a, preciso postar só sobre comida?',
                     content: 'Não. O foco é gastronomia local, mas você pode abordar rolês, experiências, storytelling — queremos criatividade.'
                 },
                 {
                     title: 'Tenho que ir até os restaurantes?',
                     content: 'Sim! Vamos enviar uma lista curada com lugares em SP, além de vouchers para facilitar sua visita.'
-                },
-                {
-                    title: 'Sou iniciante, posso participar?',
-                    content: 'Se você tem 5k+ seguidores e publica com frequência, sim! Não exigimos experiência prévia com gastronomia.'
-                },
+                },              
                 {
                     title: 'Posso gravar com celular?',
                     content: 'Deve! As aulas vão te ensinar a extrair o melhor da câmera que você já tem no bolso.'
@@ -113,7 +113,8 @@ createApp({
                 {
                     title: 'Quanto tempo dura o programa?',
                     content: 'O programa acontecerá durante 8 semanas, entre setembro de 2025 a novembro de 2025, com aulas ao vivo a cada quinze dias, das 19h às 20h. Os alunos terão atividades complementares e mentorias ao longo programa com horários a definir.'
-                }
+                },
+                
             ],
 
             verticals: [
