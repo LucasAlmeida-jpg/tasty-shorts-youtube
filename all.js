@@ -105,7 +105,7 @@ createApp({
                 {
                     title: 'Tenho que ir até os restaurantes?',
                     content: 'Sim! Vamos enviar uma lista curada com lugares em SP, além de vouchers para facilitar sua visita.'
-                },              
+                },
                 {
                     title: 'Posso gravar com celular?',
                     content: 'Deve! As aulas vão te ensinar a extrair o melhor da câmera que você já tem no bolso.'
@@ -114,7 +114,7 @@ createApp({
                     title: 'Quanto tempo dura o programa?',
                     content: 'O programa acontecerá durante 8 semanas, entre setembro de 2025 a novembro de 2025, com aulas ao vivo a cada quinze dias, das 19h às 20h. Os alunos terão atividades complementares e mentorias ao longo programa com horários a definir.'
                 },
-                
+
             ],
 
             verticals: [
@@ -132,7 +132,9 @@ createApp({
                 { name: "Finanças", id: 331 },
                 { name: "Empreendedorismo", id: 308 },
                 { name: "Educação & Carreira", id: 311 },
-                { name: "Dicas Locais", id: 375 }
+                { name: "Dicas Locais", id: 375 },
+                { name: "Tech Review", id: 394 },
+                { name: "Causas Sociais", id: 393 }
             ]
         };
     },
@@ -181,7 +183,7 @@ createApp({
 
         toggleMenu() {
             this.ui.isMenuOpen = !this.ui.isMenuOpen;
-            
+
             if (this.ui.isMenuOpen) {
                 this.scheduleMenuClose();
             }
@@ -201,16 +203,16 @@ createApp({
         handleClickOutside(event) {
             const navbar = document.querySelector('.navbar-collapse');
             const toggler = document.querySelector('.navbar-toggler');
-            
+
             if (this.isClickOutsideNavbar(event, navbar, toggler)) {
                 this.closeMenuIfOpen(navbar);
             }
         },
 
         isClickOutsideNavbar(event, navbar, toggler) {
-            return navbar && 
-                   !navbar.contains(event.target) && 
-                   !toggler.contains(event.target);
+            return navbar &&
+                !navbar.contains(event.target) &&
+                !toggler.contains(event.target);
         },
 
         closeMenuIfOpen(navbar) {
@@ -229,15 +231,15 @@ createApp({
 
         formatPhone() {
             let phone = this.form.data.phone.replace(/\D/g, '');
-            
+
             if (phone.length >= 2) {
                 this.form.data.phone = `(${phone.substring(0, 2)}`;
             }
-            
+
             if (phone.length > 2) {
                 this.form.data.phone += `) ${phone.substring(2, 7)}`;
             }
-            
+
             if (phone.length > 7) {
                 this.form.data.phone += `-${phone.substring(7, 11)}`;
             }
@@ -259,15 +261,15 @@ createApp({
 
         calculatePasswordStrength(password) {
             const { MIN_LENGTH, PATTERNS } = PASSWORD_REQUIREMENTS;
-            
-            if (password.length >= MIN_LENGTH && 
-                PATTERNS.LOWERCASE.test(password) && 
-                PATTERNS.UPPERCASE.test(password) && 
+
+            if (password.length >= MIN_LENGTH &&
+                PATTERNS.LOWERCASE.test(password) &&
+                PATTERNS.UPPERCASE.test(password) &&
                 PATTERNS.NUMBER.test(password)) {
                 return 'Forte';
-            } else if (password.length >= 6 && 
-                       /[a-zA-Z]/.test(password) && 
-                       PATTERNS.NUMBER.test(password)) {
+            } else if (password.length >= 6 &&
+                /[a-zA-Z]/.test(password) &&
+                PATTERNS.NUMBER.test(password)) {
                 return 'Média';
             } else {
                 return 'Fraca';
@@ -291,7 +293,7 @@ createApp({
         },
 
         validateSocialMedia() {
-            if (!Array.isArray(this.form.data.validacaoRedes) || 
+            if (!Array.isArray(this.form.data.validacaoRedes) ||
                 this.form.data.validacaoRedes.length === 0) {
                 return true;
             }
@@ -300,8 +302,8 @@ createApp({
             if (firstItem.socialMedia.trim() !== '' || firstItem.link.trim() !== '') {
                 return firstItem.socialMedia.trim() !== '' && firstItem.link.trim() !== '';
             }
-            
-            return true; 
+
+            return true;
         },
 
         async handleLoginResponse(response) {
@@ -314,7 +316,7 @@ createApp({
             }
 
             const data = await response.json();
-            
+
             if (data?.data?.user) {
                 if (data.data.user.date_subscription == null) {
                     this.form.data.date_subscription = this.getCurrentDate();
@@ -333,22 +335,22 @@ createApp({
 
         async formCreateUser() {
             this.resetFormMessages();
-            
+
             if (!this.validateForm()) {
                 return;
             }
-        
+
             this.form.validation.isLoading = true;
             this.form.data.date_subscription = this.getCurrentDate();
-        
+
             try {
                 const response = await this.makeAPIRequest('/v1/users', {
                     method: 'POST',
                     body: JSON.stringify(this.form.data)
                 });
-        
+
                 const data = await response.json();
-                
+
                 if (data.error) {
                     this.handleCreateUserError(data.error);
                 } else {
@@ -359,7 +361,7 @@ createApp({
                 this.form.validation.isLoading = false;
             }
         },
-        
+
         handleCreateUserError(error) {
             if (error.email && Array.isArray(error.email) && error.email.length > 0) {
                 this.form.validation.error = error.email[0];
@@ -370,9 +372,9 @@ createApp({
             } else {
                 this.form.validation.error = 'Erro de validação desconhecido.';
             }
-        
+
             this.form.validation.isLoading = false;
-        },        
+        },
 
         async formUpdateUser(token, id) {
             this.prepareSocialMediaData();
@@ -387,7 +389,7 @@ createApp({
                 });
 
                 const data = await response.json();
-                
+
                 if (data.error) {
                     this.form.validation.error = data.error.specialities[0];
                 } else {
@@ -420,11 +422,11 @@ createApp({
                 });
 
                 const data = await response.json();
-                
+
                 if (data.data?.message) {
                     this.form.validation.success = data.data.message;
                     setTimeout(() => {
-                        location.reload();                
+                        location.reload();
                     }, 1000);
                 } else {
                     throw new Error('Resposta do servidor incompleta');
@@ -491,31 +493,31 @@ createApp({
         },
 
         loadGoogleAnalytics() {
-            (function(i,s,o,g,r,a,m){
-                i['GoogleAnalyticsObject']=r;
-                i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},
-                i[r].l=1*new Date();
-                a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];
-                a.async=1;
-                a.src=g;
-                m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-            
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) },
+                    i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
             ga('create', ANALYTICS_ID, 'auto');
             ga('send', 'pageview');
         },
 
         loadGoogleTagManager() {
-            (function(w,d,s,l,i){
-                w[l]=w[l]||[];
-                w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-                j.async=true;
-                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer', GTM_ID);
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', GTM_ID);
         }
     },
 
@@ -529,7 +531,7 @@ createApp({
 
         navStyle() {
             const baseStyle = { backgroundColor: "#FFFFFF" };
-            
+
             if (this.ui.scrolled) {
                 return {
                     ...baseStyle,
@@ -540,7 +542,7 @@ createApp({
                     paddingBottom: '20px'
                 };
             }
-            
+
             return baseStyle;
         },
 
