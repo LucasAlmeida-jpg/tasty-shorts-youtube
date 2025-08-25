@@ -116,7 +116,6 @@ createApp({
                 }
             ],
 
-
             verticals: [
                 { name: "Beleza", id: 263 },
                 { name: "Casa", id: 306 },
@@ -125,7 +124,14 @@ createApp({
                 { name: "Fitness", id: 264 },
                 { name: "Games", id: 362 },
                 { name: "Moda", id: 323 },
-                { name: "Tecnologia", id: 368 }
+                { name: "Tecnologia", id: 368 },
+                { name: "Culinária & Gastronomia", id: 267 },
+                { name: "Saúde & Bem Estar", id: 365 },
+                { name: "Música & Cultura", id: 262 },
+                { name: "Finanças", id: 331 },
+                { name: "Empreendedorismo", id: 308 },
+                { name: "Educação & Carreira", id: 311 },
+                { name: "Dicas Locais", id: 375 }
             ]
         };
     },

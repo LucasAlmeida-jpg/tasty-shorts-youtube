@@ -183,7 +183,7 @@
                                             <span class="mb-2">Selecione as verticais do seu conteúdo</span>
                                             <div class="row border mb-3">
                                                 <div class="col-md-6">
-                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(0, 4)"
+                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(0, 9)"
                                                         :key="v.id">
                                                         <input type="checkbox" class="form-check-input"
                                                             :id="'checkbox-' + v.name" :value="v.id"
@@ -194,7 +194,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(4)" :key="v.id">
+                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(9)" :key="v.id">
                                                         <input type="checkbox" class="form-check-input"
                                                             :id="'checkbox-' + v.name" :value="v.id"
                                                             v-model="formData.specialities"
@@ -207,7 +207,7 @@
                                             <div>
                                                 <div class="my-4" v-for="(item, index) in formData.validacaoRedes"
                                                 :key="index">
-                                                <label class="font-label">Escolha sua rede:</label>
+                                                <label class="font-label">Adicionar o username da sua rede com mais seguidores</label>
                                                 <div class="form-floating mb-2">
                                                         <select v-model="item.socialMedia"
                                                             class="form-select form-select-sm"
@@ -220,7 +220,7 @@
                                                     </div>
                                                     <div v-if="item.socialMedia !== ''">
                                                         <label class="font-label"
-                                                            :for="'socialMediaInput' + index">Link:</label>
+                                                            :for="'socialMediaInput' + index">Incluir apenas o username:</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="form-control link">{{
@@ -245,10 +245,8 @@
                                             </div>
 
                                             <div class="custom-checkbox mb-4">
-                                                <input type="checkbox" class="mt-4" checked> Li e concordo com os <span
-                                                    class="span-lista"> <a href="https://creators.llc/termos/"
-                                                        target="_blank">Termos de
-                                                        uso</a></span>
+                                                <input type="checkbox" class="mt-4" checked> Ao marcar esta caixa de seleção, você declara que (i)  possui pelo menos 18 anos de idade ou é considerado maior de idade em seu país de residência e (ii) concorda em participar do Programa Tasty Shorts do YouTube. Entendo que o YouTube poderá me contatar para oportunidades e atualizações de produtos ou políticas através de e-mail, número de telefone e outras redes sociais. Compreendo também que minhas informações serão utilizadas de acordo com a Política de Privacidade do Google e da Creators Platform LLC.<span
+                                                    class="span-lista">
                                             </div>
                                     </form>
                                 </div>
@@ -430,7 +428,7 @@
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Certificado</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">Oficial do Youtube
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Oficial do YouTube
                                     Brasil</p>
                             </div>
                         </div>
@@ -445,7 +443,7 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-fifth-section text-center">
                                 <img src="assets/what_earn/3.png" alt="Ícone" class="icon-img">
-                                <h5 class="youtube-sans-bold mt-3">Gifts Youtube</h5>
+                                <h5 class="youtube-sans-bold mt-3">Gifts YouTube</h5>
                                 <p class="youtube-sans-regular  font-extra-small line-height-forced">exclusivos</p>
                             </div>
                         </div>
@@ -542,6 +540,15 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="col-md-3" data-aos="flip-right">
+                            <div class="card-sixth-section text-center">
+                                <img src="assets/participants/6.png" alt="Ícone" class="icon-img">
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter canal do Youtube</b><br class="show"><span
+                                        class="youtube-sans-regular font-extra-small">Por ser um recém criado
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
                         <!-- <div class="col-md-4 d-flex justify-content-center" data-aos="flip-right">
                             <img src="assets/main/image-04.png" alt="Ícone" class="icon-img w-auto">
                         </div> -->
@@ -565,7 +572,7 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Inscrições abertas</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 30 de Agosto de
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 31 de Agosto de
                                     2025
                                 </p>
                             </div>
@@ -637,6 +644,7 @@
                     </div>
                 </div>
             </section>
+            <hr>
             <footer class="p-intern">
                 <div class="container">
                     <div class="row">
