@@ -60,19 +60,26 @@
   font-weight: thin;
   font-style: normal;
 }
-.slide-enter-active, .slide-leave-active {
+
+.slide-enter-active,
+.slide-leave-active {
   transition: margin-left 0.4s;
 }
-.slide-enter, .slide-leave-to {
+
+.slide-enter,
+.slide-leave-to {
   margin-left: 100%;
 }
+
 .validation-container {
   overflow: hidden;
 }
-.border{
+
+.border {
   border: none !important;
   padding: 10px 0px;
 }
+
 .span-list {
   color: #F5383C;
   font-weight: 100;
@@ -82,11 +89,13 @@
   padding: 6px;
   border-radius: 40px;
 }
-.span-lista a{
+
+.span-lista a {
   color: #F5383C;
   cursor: pointer;
   text-decoration: none;
 }
+
 .form-floating>.form-select {
   height: 34px !important;
   padding: 8px !important;
@@ -94,23 +103,27 @@
   border: 1px solid;
   border-radius: 40px;
 }
-.form-select:focus{
+
+.form-select:focus {
   outline: none;
   box-shadow: none;
 }
+
 .input-group {
-border-bottom: 1px solid #F5383C;
+  border-bottom: 1px solid #F5383C;
 }
+
 .form-control.link {
   background-color: transparent;
   box-shadow: none;
   border-radius: 0;
   border: none !important
 }
+
 .form-control.link:focus {
   outline: none;
   box-shadow: none;
-  
+
 }
 
 .form-control.link {
@@ -118,6 +131,7 @@ border-bottom: 1px solid #F5383C;
   padding: 0;
 
 }
+
 .font-label {
   font-size: 12px;
 }
@@ -472,6 +486,7 @@ nav.scrolled {
   align-items: center;
   font-size: 18px;
 }
+
 .btn-image {
   width: 15px;
   margin-bottom: 2px;
@@ -493,6 +508,7 @@ footer {
   .logo-mobile-sm {
     display: none !important;
   }
+
   .main-image {
     width: 500px;
     max-width: 90%;
@@ -604,9 +620,11 @@ footer {
   .navbar.scrolled {
     padding-bottom: 54px !important;
   }
-.text-end {
-  display: none;
-}
+
+  .text-end {
+    display: none;
+  }
+
   footer .d-flex {
     display: flex !important;
     justify-content: space-around;
@@ -676,9 +694,11 @@ footer {
   .main-image {
     width: 375px;
   }
+
   .logo-mobile-sm {
     display: block !important;
   }
+
   .nineth-section img {
     width: 375px;
   }
@@ -721,6 +741,7 @@ footer {
   br {
     display: none !important;
   }
+
   .show {
     display: block !important;
   }
@@ -860,13 +881,34 @@ footer {
     border-top-color: #333;
   }
 
+  .font-large {
+    font-size: 38px;
+  }
+
+  .font-medium {
+    font-size: 25px;
+  }
+
   .text-end {
     text-align: center !important;
+  }
+
+  .font-small {
+    font-size: 16px;
   }
 
   .modal {
     height: 100vh;
     backdrop-filter: blur(2px);
     background-color: rgba(0, 0, 0, 0.5);
+  }
+  footer .p-intern {
+    padding: 0px 0px;
+  }
+
+  footer img {
+    img {
+      width: 100px !important;
+    }
   }
 }
