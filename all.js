@@ -157,6 +157,11 @@ createApp({
     },
 
     methods: {
+        addSocialMedia() {
+            if (this.formData.validacaoRedes.length < 2) {
+              this.formData.validacaoRedes.push({ socialMedia: '', link: '' });
+            }
+          },
         formLogin() {
             this.error = "";
             this.success = "";
@@ -181,12 +186,12 @@ createApp({
             })
             .then(data => {
               if (data) {
-                if(data.data.user && data.data.user.date_subscription == null){
+                if(data){
                   const now = new Date();
                   const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
                   this.formData.date_subscription = formattedDate;
       
-                  this.formUpdateUser(data.data.access_token, data.data.user.id);
+                  this.handleLoginResponse(data);
                 }else{
                   this.isLoading = false;
                   this.success = "E-mail já inscrito!";
@@ -608,23 +613,13 @@ createApp({
         },
     
         async handleLoginResponse(response) {
-            if (!response.ok) {
-                if (response.status === 401) {
-                    this.form.validation.error = 'Ocorreu um erro no login. Por favor, verifique se o e-mail e senha estão corretos.';
-                }
+            if (!response) {              
                 this.form.validation.isLoading = false;
                 return;
             }
-            const data = await response.json();
-            
-            if (data?.data?.user) {
-                if (data.data.user.date_subscription == null) {
-                    this.form.data.date_subscription = this.getCurrentDate();
-                    await this.formUpdateUser(data.data.access_token, data.data.user.id);
-                } else {
-                    this.form.validation.isLoading = false;
-                    this.form.validation.success = "E-mail já inscrito!";
-                }
+            const data = await response;
+            if (data?.data?.user) {                
+                this.formUpdateUser(data.data.access_token, data.data.user.id);                
             }
         },
         handleLoginError(error) {
@@ -639,9 +634,6 @@ createApp({
         },
     
         async formUpdateUser(token, id) {
-            console.log('🔄 INICIANDO formUpdateUser');
-            console.log('🎯 Token:', token ? '✅ Presente' : '❌ Ausente');
-            console.log('🆔 ID do usuário:', id);
             
             this.prepareSocialMediaData();
             

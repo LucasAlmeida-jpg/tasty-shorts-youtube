@@ -112,8 +112,8 @@
                                             <label for="floatingInput">E-mail</label>
                                         </div>
                                         <div class="form-floating mb-2">
-                                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="formData.password" @input="checkPasswordStrength">
-                                            <label for="floatingPassword">Senha</label>
+                                            <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" v-model="formData.password" @input="checkPasswordStrength">
+                                            <label for="floatingPassword1">Senha</label>
                                             <div v-if="passwordStrength && showAllFields" :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
                                               <span class="tooltip-trigger" @mouseenter="showTooltip" @mouseleave="hideTooltip">Senha {{ passwordStrength }}</span>
                                               <div v-show="showingTooltip" class="tooltip-content">
