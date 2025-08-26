@@ -633,58 +633,42 @@ createApp({
             });
         },
     
-        async formUpdateUser(token, id) {
-            
-            this.prepareSocialMediaData();
-            
-            const updateData = this.prepareDataForSubmission();
-            console.log('📝 Dados para atualização:', updateData);
-    
-            try {
-                const response = await this.makeAPIRequest(`/v1/users/${id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify(updateData),
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-    
+        formUpdateUser(token, id) {
+            this.formData.validacaoRedes.forEach(element => {
+              this.formData[element.socialMedia] = this.getBaseLink(element.socialMedia) + element.link;
+            });
+            console.log(this.formData)
+            fetch('https://creators.llc/api/v1/users/'+id, {
+                method: 'PUT',
+                body: JSON.stringify(this.formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            })
+            .then(response => {
                 if (!response.ok) {
-                    console.log(`❌ HTTP Error na atualização: ${response.status}`);
-                    throw new Error(`HTTP Error: ${response.status}`);
+                    throw new Error('Erro ao atualizar usuário');
                 }
-    
-                const data = await response.json();
-                console.log('📥 Resposta da atualização:', data);
-                
-                if (data.error) {
-                    console.log('❌ ERRO NA ATUALIZAÇÃO');
-                    console.log('📋 Detalhes:', data.error);
-                    
-                    if (data.error.specialities) {
-                        this.form.validation.error = Array.isArray(data.error.specialities) 
-                            ? data.error.specialities[0] 
-                            : data.error.specialities;
-                    } else {
-                        this.handleCreateUserError(data.error);
-                    }
-                } else {
-                    console.log('✅ USUÁRIO ATUALIZADO COM SUCESSO');
-                    this.form.validation.success = 'Inscrição efetuada com sucesso!';
-                    
-                    setTimeout(() => {
-                        console.log('🔄 Recarregando página...');
-                        window.location.reload();
-                    }, 1000);
+                return response.json(); 
+            })
+            .then(data => {
+                if(data.error) {
+                    this.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+                    this.isLoading = false;
+                } else if(!data.error) {
+                  this.success = 'Inscrição efetuada com sucesso!';
+                  this.isLoading = false;
+      
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
                 }
-                
-            } catch (error) {
-                console.error('💥 Erro na atualização:', error);
-                this.form.validation.error = 'Erro ao atualizar dados do usuário';
-            } finally {
-                this.form.validation.isLoading = false;
-            }
-        },
+            })
+            .catch(error => {
+                console.error('Erro na solicitação:', error);
+            });
+          },
         
         async formForgot() {
             if (!this.form.data.email) {
