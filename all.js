@@ -45,7 +45,8 @@ createApp({
                     origin: "youtube_shorts_br",
                     date_subscription: "",
                     specialities: [],
-                    validacaoRedes: [{ socialMedia: '', link: '' }]
+                    validacaoRedes: [{ socialMedia: '', link: '' }],
+                    new: true                
                 },
                 validation: {
                     passwordStrength: '',
@@ -156,6 +157,47 @@ createApp({
     },
 
     methods: {
+        formLogin() {
+            this.error = "";
+            this.success = "";
+            this.isLoading = true;
+          
+            fetch('https://creators.llc/api/auth/login', {
+              method: 'POST',
+              body: JSON.stringify(this.formData),
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                if (response.status === 401) {
+                  this.error = 'Ocorreu um erro no login. Por favor, verifique se o e-mail e senha estão corretos.';
+                }
+                this.isLoading = false;
+              } else {
+                return response.json();
+              }
+            })
+            .then(data => {
+              if (data) {
+                if(data.data.user && data.data.user.date_subscription == null){
+                  const now = new Date();
+                  const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+                  this.formData.date_subscription = formattedDate;
+      
+                  this.formUpdateUser(data.data.access_token, data.data.user.id);
+                }else{
+                  this.isLoading = false;
+                  this.success = "E-mail já inscrito!";
+                }
+              }
+            })
+            .catch(error => {
+              this.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+              this.isLoading = false;
+            });
+          },
         initializeApp() {
             this.loadAnalytics();
             this.setupEventListeners();

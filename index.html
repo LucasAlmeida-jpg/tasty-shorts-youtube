@@ -99,8 +99,8 @@
                                     </div>
                                     <form v-else>
                                         <p v-if="showAllFields"><strong>Faça o cadastro para se inscrever</strong></p>
-                                        <p v-else-if="!showAllFields">Para realizar a troca de senha, informe seu e-mail
-                                            abaixo:</p>
+                                        <!-- <p v-else-if="!showAllFields">Para realizar a troca de senha, informe seu e-mail
+                                            abaixo:</p> -->
                                         <div v-if="showAllFields" class="form-floating mb-2">
                                             <input type="text" class="form-control" id="floatingName" placeholder="Nome"
                                                 v-model="formData.name">
@@ -111,6 +111,16 @@
                                                 placeholder="name@example.com" v-model="formData.email">
                                             <label for="floatingInput">E-mail</label>
                                         </div>
+                                        <div class="form-floating mb-2">
+                                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="formData.password" @input="checkPasswordStrength">
+                                            <label for="floatingPassword">Senha</label>
+                                            <div v-if="passwordStrength && showAllFields" :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
+                                              <span class="tooltip-trigger" @mouseenter="showTooltip" @mouseleave="hideTooltip">Senha {{ passwordStrength }}</span>
+                                              <div v-show="showingTooltip" class="tooltip-content">
+                                                Para que a senha seja forte, é preciso ter letra maiúscula, caractere especial e números!
+                                              </div>
+                                            </div>
+                                          </div>
                                         <div v-if="showAllFields" class="form-floating mb-2">
                                             <input type="tel" class="form-control" id="floatingPhone"
                                                 v-model="formData.phone" @input="formatTelefone" value="Telefone">
@@ -138,9 +148,11 @@
                                                     src="https://storage.googleapis.com/creators-static-1/images/logo-sm.svg"
                                                     alt=""></span></button>
                                         <button v-else-if="!showAllFields" class="btn btn-secondary me-2"
-                                            @click="toggleFieldsVisibility">Voltar ao cadastro</button>
-                                        <button v-if="!showAllFields" class="btn btn-primary me-2"
-                                            @click="formForgot">Enviar um link de troca de senha</button>
+                                        @click="toggleFieldsVisibility">Voltar ao cadastro</button>
+                                        
+                                        <button v-if="!showAllFields" class="btn btn-secondary w-50 me-2"
+                                        @click="formForgot">Esqueci a senha</button>
+                                        <button  v-if="!showAllFields" class="btn btn-primary w-100 mt-2" @click="formLogin">Inscreva-se</button>
                                     </div>
                                     <div>
                                         <button
