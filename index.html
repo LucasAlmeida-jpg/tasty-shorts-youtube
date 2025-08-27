@@ -112,28 +112,23 @@
                                             <label for="floatingInput">E-mail</label>
                                         </div>
                                         <div class="form-floating mb-2">
-                                            <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" v-model="formData.password" @input="checkPasswordStrength">
-                                            <label for="floatingPassword1">Senha</label>
-                                            <div v-if="passwordStrength && showAllFields" :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
-                                              <span class="tooltip-trigger" @mouseenter="showTooltip" @mouseleave="hideTooltip">Senha {{ passwordStrength }}</span>
-                                              <div v-show="showingTooltip" class="tooltip-content">
-                                                Para que a senha seja forte, é preciso ter letra maiúscula, caractere especial e números!
-                                              </div>
-                                            </div>
-                                          </div>
-                                        <div v-if="showAllFields" class="form-floating mb-2">
-                                            <input type="tel" class="form-control" id="floatingPhone"
-                                                v-model="formData.phone" @input="formatTelefone" value="Telefone">
-                                            <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
-                                        </div>
-                                        <div v-if="showAllFields" class="form-floating mb-2">
-                                            <input type="password" class="form-control" id="floatingPassword"
+                                            <input type="password" class="form-control" id="floatingPassword1"
                                                 placeholder="Password" v-model="formData.password"
                                                 @input="checkPasswordStrength">
-                                            <label for="floatingPassword">Senha</label>
+                                            <label for="floatingPassword1">Senha</label>
                                             <div v-if="passwordStrength && showAllFields"
                                                 :class="{'text-success': passwordStrength === 'Forte', 'text-warning': passwordStrength === 'Média', 'text-danger': passwordStrength === 'Fraca'}">
+                                                <span class="tooltip-trigger">Senha {{ passwordStrength }}</span>
+                                                <div v-show="showingTooltip" class="tooltip-content">
+                                                    Para que a senha seja forte, é preciso ter letra maiúscula,
+                                                    caractere especial e números!
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div v-if="showAllFields" class="form-floating mb-2">
+                                            <input type="tel" class="form-control" id="floatingPhone"
+                                                v-model="formData.phone" @input="formatPhone" value="Telefone">
+                                            <label for="floatingPhone">Telefone com DDD (xx)xxxxx-xxxx</label>
                                         </div>
                                     </form>
 
@@ -148,11 +143,12 @@
                                                     src="https://storage.googleapis.com/creators-static-1/images/logo-sm.svg"
                                                     alt=""></span></button>
                                         <button v-else-if="!showAllFields" class="btn btn-secondary me-2"
-                                        @click="toggleFieldsVisibility">Voltar ao cadastro</button>
-                                        
+                                            @click="toggleFieldsVisibility">Voltar</button>
+
                                         <button v-if="!showAllFields" class="btn btn-secondary w-50 me-2"
-                                        @click="formForgot">Esqueci a senha</button>
-                                        <button  v-if="!showAllFields" class="btn btn-primary w-100 mt-2" @click="formLogin">Inscreva-se</button>
+                                            @click="formForgot">Esqueci a senha</button>
+                                        <button v-if="!showAllFields" class="btn btn-primary w-100 mt-2"
+                                            @click="formLogin">Inscreva-se</button>
                                     </div>
                                     <div>
                                         <button
@@ -195,8 +191,8 @@
                                             <span class="mb-2">Selecione as verticais do seu conteúdo</span>
                                             <div class="row border mb-3">
                                                 <div class="col-md-6">
-                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(0, 9)"
-                                                        :key="v.id">
+                                                    <div class="form-check custom-checkbox"
+                                                        v-for="v in vertical.slice(0, 9)" :key="v.id">
                                                         <input type="checkbox" class="form-check-input"
                                                             :id="'checkbox-' + v.name" :value="v.id"
                                                             v-model="formData.specialities"
@@ -206,7 +202,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-check custom-checkbox" v-for="v in vertical.slice(9)" :key="v.id">
+                                                    <div class="form-check custom-checkbox"
+                                                        v-for="v in vertical.slice(9)" :key="v.id">
                                                         <input type="checkbox" class="form-check-input"
                                                             :id="'checkbox-' + v.name" :value="v.id"
                                                             v-model="formData.specialities"
@@ -218,9 +215,10 @@
                                             </div>
                                             <div>
                                                 <div class="my-4" v-for="(item, index) in formData.validacaoRedes"
-                                                :key="index">
-                                                <label class="font-label">Adicionar o username da sua rede com mais seguidores</label>
-                                                <div class="form-floating mb-2">
+                                                    :key="index">
+                                                    <label class="font-label">Adicionar o username da sua rede com mais
+                                                        seguidores</label>
+                                                    <div class="form-floating mb-2">
                                                         <select v-model="item.socialMedia"
                                                             class="form-select form-select-sm"
                                                             aria-label=".form-select-sm example">
@@ -232,7 +230,8 @@
                                                     </div>
                                                     <div v-if="item.socialMedia !== ''">
                                                         <label class="font-label"
-                                                            :for="'socialMediaInput' + index">Incluir apenas o username:</label>
+                                                            :for="'socialMediaInput' + index">Incluir apenas o
+                                                            username:</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="form-control link">{{
@@ -258,12 +257,19 @@
 
                                             <div class="custom-checkbox mb-4">
                                                 <div class="custom-checkbox mb-4">
-                                                    <input type="checkbox" class="mt-4" checked> Li e concordo com os <span
-                                                        class="span-lista"> <a href="https://creators.llc/termos/"
+                                                    <input type="checkbox" class="mt-4" checked> Li e concordo com os
+                                                    <span class="span-lista"> <a href="https://creators.llc/termos/"
                                                             target="_blank">Termos de
                                                             uso</a></span>
                                                 </div>
-                                                <input type="checkbox" class="mt-2" checked> Ao marcar esta caixa de seleção, você declara que (i)  possui pelo menos 18 anos de idade ou é considerado maior de idade em seu país de residência e (ii) concorda em participar do Programa Tasty Shorts do YouTube. Entendo que o YouTube poderá me contatar para oportunidades e atualizações de produtos ou políticas através de e-mail, número de telefone e outras redes sociais. Compreendo também que minhas informações serão utilizadas de acordo com a Política de Privacidade do Google e da Creators Platform LLC.<span
+                                                <input type="checkbox" class="mt-2" checked> Ao marcar esta caixa de
+                                                seleção, você declara que (i) possui pelo menos 18 anos de idade ou é
+                                                considerado maior de idade em seu país de residência e (ii) concorda em
+                                                participar do Programa Tasty Shorts do YouTube. Entendo que o YouTube
+                                                poderá me contatar para oportunidades e atualizações de produtos ou
+                                                políticas através de e-mail, número de telefone e outras redes sociais.
+                                                Compreendo também que minhas informações serão utilizadas de acordo com
+                                                a Política de Privacidade do Google e da Creators Platform LLC.<span
                                                     class="span-lista">
                                             </div>
                                     </form>
@@ -271,7 +277,8 @@
                                 <div class="modal-footer" v-if="!success">
                                     <button class="btn btn-primary" @click="toggleReturn"
                                         data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Voltar</button>
-                                    <button class="btn btn-secondary" @click="formCreateUser">Cadastrar</button>
+                                    <button class="btn btn-secondary" @click="formCreateUser">{{success ? 'Cadastrando'
+                                        : 'Cadastrar'}}</button>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +314,8 @@
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-md-6" data-aos="fade-down-left">
                             <h1 class="text-light font-medium youtube-sans-bold"><span
-                                    class="font-small youtube-sans-regular">O que é o</span><br class="show">TASTY SHORTS BR?</h1>
+                                    class="font-small youtube-sans-regular">O que é o</span><br class="show">TASTY
+                                SHORTS BR?</h1>
                             <p class="text-light youtube-sans-regular font-small mt-3">Uma jornada 100% gratuita, com 8
                                 semanas de duração, criada para formar e destacar
                                 criadores locais através de conteúdos sobre os melhores restaurantes de São Paulo e
@@ -342,7 +350,8 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold">Treinamento</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">online com prática</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">online com prática
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-3" data-aos="flip-right">
@@ -365,7 +374,8 @@
                             <div class="card-third-section text-center">
                                 <img src="assets/how_it_works/4.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold">Embaixadores</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">Experts como professores</p>
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">Experts como
+                                    professores</p>
                             </div>
                         </div>
                     </div>
@@ -561,7 +571,8 @@
                         <div class="col-md-3" data-aos="flip-right">
                             <div class="card-sixth-section text-center">
                                 <img src="assets/participants/6.png" alt="Ícone" class="icon-img">
-                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter canal do Youtube</b><br class="show"><span
+                                <p class="youtube-sans-bold font-small font-tablet mt-3 text-light"><b>Ter canal do
+                                        Youtube</b><br class="show"><span
                                         class="youtube-sans-regular font-extra-small">Pode ser um recém criado
                                     </span>
                                 </p>
@@ -686,8 +697,7 @@
                                         <a class="info-footer youtube-sans-semibold" href="#premiacao">Premiação</a>
                                     </div>
                                     <div>
-                                        <a class="info-footer youtube-sans-semibold"
-                                            href="./assets/regulamento/reg.pdf"
+                                        <a class="info-footer youtube-sans-semibold" href="./assets/regulamento/reg.pdf"
                                             target="_blank">Regulamento</a>
                                     </div>
                                     <div>

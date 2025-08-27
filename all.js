@@ -24,6 +24,8 @@ const PASSWORD_REQUIREMENTS = {
 createApp({
     data() {
         return {
+            error: '',
+            success: '',
             ui: {
                 loading: true,
                 showModal: false,
@@ -46,7 +48,7 @@ createApp({
                     date_subscription: "",
                     specialities: [],
                     validacaoRedes: [{ socialMedia: '', link: '' }],
-                    new: true                
+                    new: true
                 },
                 validation: {
                     passwordStrength: '',
@@ -159,50 +161,41 @@ createApp({
     methods: {
         addSocialMedia() {
             if (this.formData.validacaoRedes.length < 2) {
-              this.formData.validacaoRedes.push({ socialMedia: '', link: '' });
+                this.formData.validacaoRedes.push({ socialMedia: '', link: '' });
             }
-          },
+        },
         formLogin() {
             this.error = "";
             this.success = "";
             this.isLoading = true;
-          
+
             fetch('https://creators.llc/api/auth/login', {
-              method: 'POST',
-              body: JSON.stringify(this.formData),
-              headers: {
-                'Content-Type': 'application/json',
-              }
-            })
-            .then(response => {
-              if (!response.ok) {
-                if (response.status === 401) {
-                  this.error = 'Ocorreu um erro no login. Por favor, verifique se o e-mail e senha estão corretos.';
+                method: 'POST',
+                body: JSON.stringify(this.formData),
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-                this.isLoading = false;
-              } else {
-                return response.json();
-              }
             })
-            .then(data => {
-              if (data) {
-                if(data){
-                  const now = new Date();
-                  const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
-                  this.formData.date_subscription = formattedDate;
-      
-                  this.handleLoginResponse(data);
-                }else{
-                  this.isLoading = false;
-                  this.success = "E-mail já inscrito!";
-                }
-              }
-            })
-            .catch(error => {
-              this.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
-              this.isLoading = false;
-            });
-          },
+                .then(response => response.json())
+                .then(data => {
+                    this.isLoading = false;
+
+                    if (data.error) {
+                        this.error = data.error.message;
+                    }
+                    else if (data) {
+                        const now = new Date();
+                        const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+                        this.formData.date_subscription = formattedDate;
+
+                        this.handleLoginResponse(data);
+                    }
+                })
+                .catch(error => {
+                    this.isLoading = false;
+                    this.error = error.message || 'Erro de conexão. Tente novamente.';
+                });
+        },
         initializeApp() {
             this.loadAnalytics();
             this.setupEventListeners();
@@ -223,7 +216,7 @@ createApp({
         },
         toggleMenu() {
             this.ui.isMenuOpen = !this.ui.isMenuOpen;
-            
+
             if (this.ui.isMenuOpen) {
                 this.scheduleMenuClose();
             }
@@ -241,15 +234,15 @@ createApp({
         handleClickOutside(event) {
             const navbar = document.querySelector('.navbar-collapse');
             const toggler = document.querySelector('.navbar-toggler');
-            
+
             if (this.isClickOutsideNavbar(event, navbar, toggler)) {
                 this.closeMenuIfOpen(navbar);
             }
         },
         isClickOutsideNavbar(event, navbar, toggler) {
-            return navbar && 
-                   !navbar.contains(event.target) && 
-                   !toggler.contains(event.target);
+            return navbar &&
+                !navbar.contains(event.target) &&
+                !toggler.contains(event.target);
         },
         closeMenuIfOpen(navbar) {
             if (navbar.classList.contains('show')) {
@@ -264,15 +257,15 @@ createApp({
         },
         formatPhone() {
             let phone = this.form.data.phone.replace(/\D/g, '');
-            
+
             if (phone.length >= 2) {
                 this.form.data.phone = `(${phone.substring(0, 2)}`;
             }
-            
+
             if (phone.length > 2) {
                 this.form.data.phone += `) ${phone.substring(2, 7)}`;
             }
-            
+
             if (phone.length > 7) {
                 this.form.data.phone += `-${phone.substring(7, 11)}`;
             }
@@ -302,35 +295,28 @@ createApp({
         },
         calculatePasswordStrength(password) {
             const { MIN_LENGTH, PATTERNS } = PASSWORD_REQUIREMENTS;
-            
-            if (password.length >= MIN_LENGTH && 
-                PATTERNS.LOWERCASE.test(password) && 
-                PATTERNS.UPPERCASE.test(password) && 
+
+            if (password.length >= MIN_LENGTH &&
+                PATTERNS.LOWERCASE.test(password) &&
+                PATTERNS.UPPERCASE.test(password) &&
                 PATTERNS.NUMBER.test(password)) {
                 return 'Forte';
-            } else if (password.length >= 6 && 
-                       /[a-zA-Z]/.test(password) && 
-                       PATTERNS.NUMBER.test(password)) {
+            } else if (password.length >= 6 &&
+                /[a-zA-Z]/.test(password) &&
+                PATTERNS.NUMBER.test(password)) {
                 return 'Média';
             } else {
                 return 'Fraca';
             }
         },
-        // VALIDAÇÃO RIGOROSA para especialidades
+
         validateSpecialities() {
-            console.log('🔍 VALIDANDO ESPECIALIDADES:', this.form.data.specialities);
-            
             if (!Array.isArray(this.form.data.specialities)) {
-                console.log('❌ specialities não é um array');
                 return false;
             }
-            
             if (this.form.data.specialities.length === 0) {
-                console.log('❌ Nenhuma especialidade selecionada');
                 return false;
             }
-            
-            console.log('✅ Especialidades válidas:', this.form.data.specialities);
             return true;
         },
         removeSocialMedia() {
@@ -341,10 +327,10 @@ createApp({
         getBaseLink(socialMedia) {
             return socialMediaUrls[socialMedia] || '';
         },
-    
+
         // MÉTODO ANTIGO - Mantido para compatibilidade
         validateSocialMedia() {
-            if (!Array.isArray(this.form.data.validacaoRedes) || 
+            if (!Array.isArray(this.form.data.validacaoRedes) ||
                 this.form.data.validacaoRedes.length === 0) {
                 return true;
             }
@@ -352,122 +338,83 @@ createApp({
             if (firstItem.socialMedia.trim() !== '' || firstItem.link.trim() !== '') {
                 return firstItem.socialMedia.trim() !== '' && firstItem.link.trim() !== '';
             }
-            
-            return true; 
+
+            return true;
         },
-    
-        // NOVA VALIDAÇÃO RIGOROSA para evitar bug do backend
+
         validateFormStrictly() {
-            console.log('🔒 INICIANDO VALIDAÇÃO RIGOROSA');
-            console.log('📋 Dados do form.data:', this.form.data);
-            console.log('📱 Redes sociais validacaoRedes:', this.form.data.validacaoRedes);
-            
             this.form.validation.errors = {};
             let isValid = true;
-    
-            // Campos obrigatórios básicos
             const requiredFields = {
                 'name': 'Nome',
-                'email': 'E-mail', 
+                'email': 'E-mail',
                 'password': 'Senha',
                 'phone': 'Telefone'
             };
-    
-            // Verificar campos básicos obrigatórios
             Object.keys(requiredFields).forEach(field => {
                 const value = this.form.data[field];
-                console.log(`🔍 Verificando ${field}:`, value);
-                
+
                 if (!value || (typeof value === 'string' && value.trim() === '')) {
                     this.form.validation.errors[field] = `${requiredFields[field]} é obrigatório`;
                     isValid = false;
-                    console.log(`❌ CAMPO OBRIGATÓRIO VAZIO: ${field}`);
                 }
             });
-    
-            // VALIDAÇÃO ESPECÍFICA para especialidades (obrigatório ter pelo menos 1)
-            if (!Array.isArray(this.form.data.specialities) || 
+
+            if (!Array.isArray(this.form.data.specialities) ||
                 this.form.data.specialities.length === 0) {
                 this.form.validation.errors.specialities = 'Selecione pelo menos uma especialidade';
                 isValid = false;
-                console.log('❌ NENHUMA ESPECIALIDADE SELECIONADA');
-                console.log('🔍 Specialities atual:', this.form.data.specialities);
-            } else {
-                console.log('✅ Especialidades selecionadas:', this.form.data.specialities.length);
             }
-    
-            // VALIDAÇÃO ESPECÍFICA para redes sociais (seu sistema usa validacaoRedes)
-            if (!Array.isArray(this.form.data.validacaoRedes) || 
+
+            if (!Array.isArray(this.form.data.validacaoRedes) ||
                 this.form.data.validacaoRedes.length === 0) {
                 this.form.validation.errors.socialMedia = 'Adicione pelo menos uma rede social';
                 isValid = false;
-                console.log('❌ NENHUMA REDE SOCIAL ADICIONADA');
             } else {
-                // Verificar se pelo menos a primeira rede social está preenchida
                 const firstSocial = this.form.data.validacaoRedes[0];
-                console.log('🔍 Primeira rede social:', firstSocial);
-                
                 if (!firstSocial.socialMedia || firstSocial.socialMedia.trim() === '') {
                     this.form.validation.errors.socialMedia = 'Rede Social é obrigatória';
                     isValid = false;
-                    console.log('❌ TIPO DA REDE SOCIAL VAZIO');
                 }
-                
+
                 if (!firstSocial.link || firstSocial.link.trim() === '') {
                     this.form.validation.errors.link = 'Link da rede social é obrigatório';
                     isValid = false;
-                    console.log('❌ LINK DA REDE SOCIAL VAZIO');
                 }
             }
-    
-            // Validações de formato
+
             if (this.form.data.email && !this.isValidEmail(this.form.data.email.trim())) {
                 this.form.validation.errors.email = 'E-mail com formato inválido';
                 isValid = false;
-                console.log('❌ EMAIL INVÁLIDO');
             }
-    
+
             if (this.form.data.password && this.form.data.password.length < 6) {
                 this.form.validation.errors.password = 'Senha deve ter pelo menos 6 caracteres';
                 isValid = false;
-                console.log('❌ SENHA MUITO CURTA');
             }
-    
+
             if (this.form.data.phone && !this.isValidPhone(this.form.data.phone)) {
                 this.form.validation.errors.phone = 'Telefone com formato inválido';
                 isValid = false;
-                console.log('❌ TELEFONE INVÁLIDO');
             }
-    
-            console.log('📊 RESULTADO DA VALIDAÇÃO:', {
-                valido: isValid,
-                erros: this.form.validation.errors,
-                totalErros: Object.keys(this.form.validation.errors).length
-            });
-    
             if (!isValid) {
                 const firstError = Object.values(this.form.validation.errors)[0];
                 this.form.validation.error = firstError;
-                console.log('❌ VALIDAÇÃO FALHOU - PRIMEIRO ERRO:', firstError);
-            } else {
-                console.log('✅ VALIDAÇÃO RIGOROSA PASSOU');
             }
-    
+
             return isValid;
         },
-    
-        // Método para preparar dados para envio
+
         prepareDataForSubmission() {
             const cleanData = {};
-            
+
             Object.keys(this.form.data).forEach(key => {
                 const value = this.form.data[key];
-                
+
                 if (value !== undefined && value !== null) {
                     if (typeof value === 'string') {
                         const trimmed = value.trim();
                         if (trimmed !== '') {
-                            // Limpar dados específicos
                             switch (key) {
                                 case 'email':
                                     cleanData[key] = trimmed.toLowerCase();
@@ -481,69 +428,73 @@ createApp({
                     }
                 }
             });
-            
-            console.log('🧹 Dados limpos para envio:', cleanData);
             return cleanData;
         },
-    
-        // NOVA FUNÇÃO formCreateUser com validação rigorosa
-        async formCreateUser() {
-            console.log('🚀 INICIANDO formCreateUser');
-            this.resetFormMessages();
-            
-            // ⚠️ VALIDAÇÃO CRÍTICA: Impedir envio de dados incompletos ao backend
-            if (!this.validateFormStrictly()) {
-                console.log('❌ Validação frontend RIGOROSA falhou - PARANDO ANTES DO BACKEND');
-                return;
-            }
-    
-            this.form.validation.isLoading = true;
-            this.form.data.date_subscription = this.getCurrentDate();
-            
-            const dataToSend = this.prepareDataForSubmission();
-            console.log('🔍 Dados que serão enviados:', dataToSend);
-    
-            try {
-                const response = await this.makeAPIRequest('/v1/users', {
+
+        formCreateUser() {
+            this.error = "";
+            this.success = "";
+
+            this.validadeRedes()
+
+            if (this.selectedCount >= 2 && this.validadeRedes()) {
+                this.isLoading = true;
+
+                const now = new Date();
+                const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+                this.formData.date_subscription = formattedDate;
+
+                fetch('https://creators.llc/api/v1/users', {
                     method: 'POST',
-                    body: JSON.stringify(dataToSend)
-                });
-    
-                if (!response.ok) {
-                    console.log(`❌ HTTP Error: ${response.status} - ${response.statusText}`);
-                    throw new Error(`HTTP Error: ${response.status}`);
+                    body: JSON.stringify(this.formData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.isLoading = false;
+
+                        if (data.error) {
+                            if (data.error.email && Array.isArray(data.error.email) && data.error.email.length > 0) {
+                                this.error = data.error.email[0];
+                            }
+                            else if (data.error.password && Array.isArray(data.error.password) && data.error.password.length > 0) {
+                                this.error = data.error.password[0];
+                            }
+                            else if (data.error.message) {
+                                this.error = data.error.message;
+                            }
+                            else if (typeof data.error === 'string') {
+                                this.error = data.error;
+                            }
+                            else {
+                                const firstErrorField = Object.keys(data.error)[0];
+                                if (firstErrorField && Array.isArray(data.error[firstErrorField]) && data.error[firstErrorField].length > 0) {
+                                    this.error = data.error[firstErrorField][0];
+                                } else {
+                                    this.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+                                }
+                            }
+
+                        } else {
+                            this.formUpdateUser(data.data.access_token, data.data.user.id);
+                        }
+                    })
+                    .catch(error => {
+                        this.isLoading = false;
+                        this.error = 'Erro de conexão. Tente novamente.';
+                        console.error('Erro na requisição:', error);
+                    });
+            } else {
+                if (this.selectedCount < 2) {
+                    this.error = 'É necessário selecionar no mínimo 2 verticais do seu conteúdo.';
+                } else {
+                    this.error = 'É necessário selecionar no mínimo 1 rede.';
                 }
-    
-                const data = await response.json();
-                console.log('📥 Resposta do backend:', data);
-                
-                if (data.error) {
-                    console.log('❌ ERRO DO BACKEND - MAS USUÁRIO PODE TER SIDO CRIADO!');
-                    console.log('📋 Detalhes dos erros:', data.error);
-                    console.log('⚠️ ATENÇÃO: Este erro indica problema no backend!');
-                    
-                    this.handleCreateUserError(data.error);
-                    return;
-                }
-                
-                if (!data.data || !data.data.access_token || !data.data.user?.id) {
-                    console.log('❌ RESPOSTA INVÁLIDA - Dados incompletos');
-                    this.form.validation.error = 'Resposta inválida do servidor';
-                    return;
-                }
-                
-                console.log('✅ USUÁRIO CRIADO COM SUCESSO');
-                await this.formUpdateUser(data.data.access_token, data.data.user.id);
-                
-            } catch (error) {
-                console.error('💥 Erro no catch:', error);
-                this.handleNetworkError(error);
-            } finally {
-                this.form.validation.isLoading = false;
             }
         },
-    
-        // Tratamento específico para erros de rede
+
         handleNetworkError(error) {
             if (error.name === 'TypeError' && error.message.includes('fetch')) {
                 this.form.validation.error = 'Erro de conexão. Verifique sua internet.';
@@ -553,33 +504,23 @@ createApp({
                 this.form.validation.error = 'Erro interno do servidor';
             }
         },
-    
-        // Método melhorado para tratar erros
+
         handleCreateUserError(errors) {
-            console.log('🔧 PROCESSANDO ERROS DO BACKEND');
-            
             this.form.validation.isLoading = false;
             this.form.validation.errors = {};
             this.form.validation.error = '';
-            
+
             if (!errors || typeof errors !== 'object') {
-                console.log('⚠️ Formato de erro inválido:', errors);
                 this.form.validation.error = 'Erro desconhecido do servidor';
                 return;
             }
-            
-            console.log('📝 Processando erros por campo:');
-            
             let firstErrorMessage = '';
-            
+
             Object.keys(errors).forEach(field => {
                 const fieldErrors = errors[field];
-                
-                console.log(`- Campo "${field}":`, fieldErrors);
-                
                 if (Array.isArray(fieldErrors) && fieldErrors.length > 0) {
                     this.form.validation.errors[field] = fieldErrors[0];
-                    
+
                     if (!firstErrorMessage) {
                         firstErrorMessage = `${this.getFieldLabel(field)}: ${fieldErrors[0]}`;
                     }
@@ -590,14 +531,10 @@ createApp({
                     }
                 }
             });
-            
+
             this.form.validation.error = firstErrorMessage || 'Erro de validação';
-            
-            console.log('✅ Erros processados:', this.form.validation.errors);
-            console.log('📢 Mensagem geral:', this.form.validation.error);
         },
-    
-        // Método auxiliar para obter labels amigáveis dos campos
+
         getFieldLabel(fieldName) {
             const labels = {
                 'name': 'Nome',
@@ -608,37 +545,36 @@ createApp({
                 'specialities': 'Especialidades',
                 'password': 'Senha'
             };
-            
+
             return labels[fieldName] || fieldName;
         },
-    
+
         async handleLoginResponse(response) {
-            if (!response) {              
+            if (!response) {
                 this.form.validation.isLoading = false;
                 return;
             }
             const data = await response;
-            if (data?.data?.user) {                
-                this.formUpdateUser(data.data.access_token, data.data.user.id);                
+            if (data?.data?.user) {
+                this.formUpdateUser(data.data.access_token, data.data.user.id);
             }
         },
         handleLoginError(error) {
             this.form.validation.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
             this.form.validation.isLoading = false;
         },
-      
+
         prepareSocialMediaData() {
             this.form.data.validacaoRedes.forEach(element => {
                 this.form.data[element.socialMedia] = this.getBaseLink(element.socialMedia) + element.link;
             });
         },
-    
+
         formUpdateUser(token, id) {
             this.formData.validacaoRedes.forEach(element => {
-              this.formData[element.socialMedia] = this.getBaseLink(element.socialMedia) + element.link;
+                this.formData[element.socialMedia] = this.getBaseLink(element.socialMedia) + element.link;
             });
-            console.log(this.formData)
-            fetch('https://creators.llc/api/v1/users/'+id, {
+            fetch('https://creators.llc/api/v1/users/' + id, {
                 method: 'PUT',
                 body: JSON.stringify(this.formData),
                 headers: {
@@ -646,30 +582,30 @@ createApp({
                     'Authorization': `Bearer ${token}`,
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao atualizar usuário');
-                }
-                return response.json(); 
-            })
-            .then(data => {
-                if(data.error) {
-                    this.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
-                    this.isLoading = false;
-                } else if(!data.error) {
-                  this.success = 'Inscrição efetuada com sucesso!';
-                  this.isLoading = false;
-      
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 1000);
-                }
-            })
-            .catch(error => {
-                console.error('Erro na solicitação:', error);
-            });
-          },
-        
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao atualizar usuário');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        this.error = 'Ocorreu um erro ao processar sua inscrição. Por favor, tente novamente mais tarde.';
+                        this.isLoading = false;
+                    } else if (!data.error) {
+                        this.success = 'Inscrição efetuada com sucesso!';
+                        this.isLoading = false;
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na solicitação:', error);
+                });
+        },
+
         async formForgot() {
             if (!this.form.data.email) {
                 this.form.validation.error = 'Preencha um email válido';
@@ -681,11 +617,11 @@ createApp({
                     body: JSON.stringify({ email: this.form.data.email })
                 });
                 const data = await response.json();
-                
+
                 if (data.data?.message) {
                     this.form.validation.success = data.data.message;
                     setTimeout(() => {
-                        location.reload();                
+                        location.reload();
                     }, 1000);
                 } else {
                     throw new Error('Resposta do servidor incompleta');
@@ -702,14 +638,13 @@ createApp({
                     ...options.headers
                 }
             };
-        
+
             return fetch(`${API_BASE_URL}${endpoint}`, {
                 ...defaultOptions,
                 ...options
             });
         },
-        
-        // MÉTODO ANTIGO validateForm - mantido para compatibilidade
+
         validateForm() {
             const isValidSocialMedia = this.validateSocialMedia();
             if (!isValidSocialMedia) {
@@ -718,7 +653,7 @@ createApp({
             }
             return true;
         },
-        
+
         resetFormMessages() {
             this.form.validation.error = '';
             this.form.validation.errors = {};
@@ -745,30 +680,30 @@ createApp({
             return this.validateSocialMedia();
         },
         loadGoogleAnalytics() {
-            (function(i,s,o,g,r,a,m){
-                i['GoogleAnalyticsObject']=r;
-                i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},
-                i[r].l=1*new Date();
-                a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];
-                a.async=1;
-                a.src=g;
-                m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-            
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) },
+                    i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
             ga('create', ANALYTICS_ID, 'auto');
             ga('send', 'pageview');
         },
         loadGoogleTagManager() {
-            (function(w,d,s,l,i){
-                w[l]=w[l]||[];
-                w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-                j.async=true;
-                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer', GTM_ID);
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', GTM_ID);
         }
     },
 
@@ -827,14 +762,6 @@ createApp({
 
         isLoading() {
             return this.form.validation.isLoading;
-        },
-
-        error() {
-            return this.form.validation.error;
-        },
-
-        success() {
-            return this.form.validation.success;
         },
 
         passwordStrength() {
