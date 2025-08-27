@@ -26,6 +26,7 @@ createApp({
         return {
             error: '',
             success: '',
+            isLoading: false,
             ui: {
                 loading: true,
                 showModal: false,
@@ -118,7 +119,7 @@ createApp({
                 },
 
             ],
-
+            activate: false,
             verticals: [
                 { name: "Beleza", id: 263 },
                 { name: "Casa", id: 306 },
@@ -341,7 +342,9 @@ createApp({
 
             return true;
         },
-
+        activeButton() {
+            this.activate = true
+        },
         validateFormStrictly() {
             this.form.validation.errors = {};
             let isValid = true;
@@ -484,7 +487,6 @@ createApp({
                     .catch(error => {
                         this.isLoading = false;
                         this.error = 'Erro de conexão. Tente novamente.';
-                        console.error('Erro na requisição:', error);
                     });
             } else {
                 if (this.selectedCount < 2) {
@@ -624,10 +626,13 @@ createApp({
                         location.reload();
                     }, 1000);
                 } else {
-                    throw new Error('Resposta do servidor incompleta');
+                    this.error = data?.error?.message;
+                    this.form.data.email = '';  
+                    setTimeout(() => {
+                        this.error = ''
+                    }, 2000);
                 }
             } catch (error) {
-                console.error('Erro:', error);
                 this.form.validation.error = 'Erro ao enviar email de recuperação, e-mail não encontrado';
             }
         },
@@ -672,6 +677,11 @@ createApp({
         toggleFieldsVisibility() {
             this.resetFormMessages();
             this.ui.showAllFields = !this.ui.showAllFields;
+            this.activate = false;
+            this.form.data.name = '';
+            this.form.data.email = '';
+            this.form.data.phone = '';          
+            this.form.data.password = '';       
         },
         toggleReturn() {
             this.resetFormMessages();
@@ -766,10 +776,6 @@ createApp({
 
         isBlocked() {
             return this.ui.isBlocked;
-        },
-
-        isLoading() {
-            return this.form.validation.isLoading;
         },
 
         passwordStrength() {
