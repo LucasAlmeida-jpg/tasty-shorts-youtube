@@ -712,7 +712,15 @@ createApp({
             const selectedIds = this.form.data.specialities.map(Number);
             return this.verticals.filter(v => selectedIds.includes(v.id));
         },
+        isFormValid() {
+            const { name, email, phone, password } = this.formData;
 
+            return name.trim() !== '' &&
+                email.trim() !== '' &&
+                phone.trim() !== '' &&
+                phone.length >= 14 &&
+                password.trim() !== '';
+        },
 
 
         navStyle() {

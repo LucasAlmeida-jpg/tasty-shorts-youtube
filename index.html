@@ -134,29 +134,43 @@
 
                                 </div>
 
-                                <div class="modal-footer" v-if="!success">
+                                <div class="modal-footer d-block" v-if="!success">
                                     <div>
-                                        <button v-if="showAllFields"
-                                            class="btn btn-primary me-2 d-flex align-items-center"
-                                            @click="toggleFieldsVisibility">Já faço parte da Creators.llc <span><img
-                                                    class="btn-image ms-1"
-                                                    src="https://storage.googleapis.com/creators-static-1/images/logo-sm.svg"
-                                                    alt=""></span></button>
-                                        <button v-else-if="!showAllFields" class="btn btn-secondary me-2"
-                                            @click="toggleFieldsVisibility">Voltar</button>
+                                        <div class="d-flex" v-if="showAllFields">
+                                            <div>
+                                                <button class="btn btn-primary me-2 d-flex align-items-center"
+                                                    @click="toggleFieldsVisibility">Já faço parte da Creators.llc
+                                                    <span><img class="btn-image ms-1"
+                                                            src="https://storage.googleapis.com/creators-static-1/images/logo-sm.svg"
+                                                            alt=""></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button v-if="showAllFields" class="btn btn-secondary me-2"
+                                                    :disabled="!isFormValid"
+                                                    :data-bs-target="isFormValid ? '#exampleModalToggle2' : null"
+                                                    :data-bs-toggle="isFormValid ? 'modal' : null">
+                                                    Avançar
+                                                </button>
+                                            </div>
+                                        </div>
 
-                                        <button v-if="!showAllFields" class="btn btn-secondary w-50 me-2"
-                                            @click="formForgot">Esqueci a senha</button>
-                                        <button v-if="!showAllFields" class="btn btn-primary w-100 mt-2"
-                                            @click="formLogin">Inscreva-se</button>
-                                    </div>
-                                    <div>
-                                        <button
-                                            v-if="showAllFields && (formData.name === '' || formData.email === '' || (formData.phone === '' || formData.phone.length < 14) || formData.password === '')"
-                                            class="btn btn-secondary me-2" disabled>Avançar</button>
-                                        <button v-else-if="showAllFields" class="btn btn-secondary me-2"
-                                            data-bs-target="#exampleModalToggle2"
-                                            data-bs-toggle="modal">Avançar</button>
+                                        <div v-if="!showAllFields"
+                                            class="d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <button class="btn btn-secondary"
+                                                    @click="toggleFieldsVisibility">Voltar</button>
+                                            </div>
+
+                                            <div>
+                                                <button class="btn btn-secondary" @click="formForgot">Esqueci a
+                                                    senha</button>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-primary w-100 mt-2"
+                                                    @click="formLogin">Inscreva-se</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
