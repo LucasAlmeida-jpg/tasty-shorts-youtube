@@ -106,7 +106,9 @@
                                                 v-model="formData.name">
                                             <label for="floatingName">Nome</label>
                                         </div>
-                                        <p v-if="activate">Um link de troca de senha será enviado para o seu e-mail</p>
+                                        <p v-if="activate">Não lembra sua senha? <br> Não se preocupe, vamos criar uma
+                                            nova :)
+                                        </p>
                                         <div class="form-floating mb-2">
                                             <input required type="email" class="form-control" id="floatingInput"
                                                 placeholder="name@example.com" v-model="formData.email">
@@ -164,15 +166,18 @@
                                             </div>
 
                                             <div>
-                                                <button class="btn btn-primary" :disabled="!formData.email" v-if="activate" @click="formForgot">Enviar link</button>
+                                                <button class="btn btn-primary" :disabled="!formData.email"
+                                                    v-if="activate" @click="formForgot">Enviar</button>
                                             </div>
                                             <div v-if="!activate">
-                                                <button :disabled="!formData.email && !formData.password" class="btn btn-primary w-100 mt-2"
+                                                <button :disabled="!formData.email && !formData.password"
+                                                    class="btn btn-primary w-100 mt-2"
                                                     @click="formLogin">Inscreva-se</button>
                                             </div>
                                         </div>
                                         <div v-if="!showAllFields" class="text-end">
-                                            <button class="btn btn-link" v-if="!activate" @click="activeButton">Esqueci a senha</button>
+                                            <button class="btn btn-link" v-if="!activate" @click="activeButton">Esqueci
+                                                a senha</button>
                                         </div>
                                     </div>
                                 </div>
@@ -618,7 +623,8 @@
                             <div class="card-seventh-section text-center">
                                 <img src="assets/crono/1.png" alt="Ícone" class="icon-img">
                                 <h5 class="youtube-sans-bold mt-3">Inscrições abertas</h5>
-                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 08 de Setembro de
+                                <p class="youtube-sans-regular font-extra-small line-height-forced">até 08 de Setembro
+                                    de
                                     2025
                                 </p>
                             </div>
@@ -746,18 +752,20 @@
 
 <!-- Meta Pixel Code -->
 <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1109980087752735');
     fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1109980087752735&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
+</script>
+<noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1109980087752735&ev=PageView&noscript=1" /></noscript>
+<!-- End Meta Pixel Code -->
