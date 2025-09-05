@@ -351,9 +351,11 @@ nav.scrolled {
 .main-image {
   width: 650px;
 }
-
+.img-brand {
+  width: 320px;
+}
 .divider {
-  margin: 200px 0px;
+  margin: 200px 0px 30px 0px;
 }
 
 .p-intern {
@@ -695,6 +697,13 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
+  .align-sm {
+    display: block !important;
+    text-align: center;
+  }
+  .align-sm h1 {
+    margin-bottom: 30px;
+  }
   .main-image {
     width: 375px;
   }
